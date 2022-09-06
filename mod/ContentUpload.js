@@ -14,7 +14,8 @@ ACE.mod('ContentUpload', function (ace) {
             audioACI,
             textACI,
             latACI,
-            lonACI
+            lonACI,
+            formACI,
             aci = {
                 get: {
                     dat: getData,
@@ -56,6 +57,11 @@ ACE.mod('ContentUpload', function (ace) {
                         },
                         {
                             typ: 'form',
+                            cls: 'needs-validation',
+                            novalidate: 'novalidate',
+                            ini: (m) => {
+                                formACI = m;
+                            },
                             dom: [
                                 {
                                     cls: 'mb-3',
@@ -70,9 +76,14 @@ ACE.mod('ContentUpload', function (ace) {
                                             typ: 'input',
                                             id: 'formTitle',
                                             cls: 'form-control',
+                                            required: 'required',
                                             ini: (m) => {
                                                 titleACI = m;
                                             },
+                                        },
+                                        {
+                                            cls: 'invalid-feedback',
+                                            lbl: 'Please provide a valid title.',
                                         },
                                     ],
                                 },
@@ -89,9 +100,14 @@ ACE.mod('ContentUpload', function (ace) {
                                             typ: 'input',
                                             id: 'formDesc',
                                             cls: 'form-control',
+                                            required: 'required',
                                             ini: (m) => {
                                                 descACI = m;
                                             },
+                                        },
+                                        {
+                                            cls: 'invalid-feedback',
+                                            lbl: 'Please provide a valid description.',
                                         },
                                     ],
                                 },
@@ -108,9 +124,14 @@ ACE.mod('ContentUpload', function (ace) {
                                             typ: 'input',
                                             id: 'formAuthor',
                                             cls: 'form-control',
+                                            required: 'required',
                                             ini: (m) => {
                                                 authorACI = m;
                                             },
+                                        },
+                                        {
+                                            cls: 'invalid-feedback',
+                                            lbl: 'Please provide a valid author name.',
                                         },
                                     ],
                                 },
@@ -128,9 +149,15 @@ ACE.mod('ContentUpload', function (ace) {
                                             id: 'formFile',
                                             type: 'file',
                                             cls: 'form-control',
+                                            accept: '.pdf',
+                                            required: 'required',
                                             ini: (m) => {
                                                 fileACI = m;
                                             },
+                                        },
+                                        {
+                                            cls: 'invalid-feedback',
+                                            lbl: 'Please select a PDF document.',
                                         },
                                     ],
                                 },
@@ -148,9 +175,15 @@ ACE.mod('ContentUpload', function (ace) {
                                             id: 'formAudio',
                                             type: 'file',
                                             cls: 'form-control',
+                                            accept: 'audio/*',
+                                            required: 'required',
                                             ini: (m) => {
                                                 audioACI = m;
                                             },
+                                        },
+                                        {
+                                            cls: 'invalid-feedback',
+                                            lbl: 'Please select an audio file.',
                                         },
                                     ],
                                 },
@@ -167,9 +200,14 @@ ACE.mod('ContentUpload', function (ace) {
                                             typ: 'textarea',
                                             id: 'formStory',
                                             cls: 'form-control',
+                                            required: 'required',
                                             ini: (m) => {
                                                 textACI = m;
                                             },
+                                        },
+                                        {
+                                            cls: 'invalid-feedback',
+                                            lbl: 'Please provide a text story.',
                                         },
                                     ],
                                 },
@@ -187,9 +225,14 @@ ACE.mod('ContentUpload', function (ace) {
                                             id: 'formLat',
                                             cls: 'form-control',
                                             type: 'number',
+                                            required: 'required',
                                             ini: (m) => {
                                                 latACI = m;
                                             },
+                                        },
+                                        {
+                                            cls: 'invalid-feedback',
+                                            lbl: 'Please provide a valid latitude.',
                                         },
                                     ],
                                 },
@@ -207,9 +250,14 @@ ACE.mod('ContentUpload', function (ace) {
                                             id: 'formLon',
                                             cls: 'form-control',
                                             type: 'number',
+                                            required: 'required',
                                             ini: (m) => {
                                                 lonACI = m;
                                             },
+                                        },
+                                        {
+                                            cls: 'invalid-feedback',
+                                            lbl: 'Please provide a valid longitude.',
                                         },
                                     ],
                                 },
@@ -218,10 +266,10 @@ ACE.mod('ContentUpload', function (ace) {
                                     dom: {
                                         typ: 'button',
                                         cls: 'btn btn-primary',
-                                        type: 'button',
+                                        type: 'submit',
                                         lbl: 'Submit',
                                         on: {
-                                            click: () => {
+                                            click: (e) => {
                                                 const o = getData();
                                                 console.log(o);
                                                 // submit(o);
@@ -230,7 +278,7 @@ ACE.mod('ContentUpload', function (ace) {
                                     },
                                 },
                             ],
-                        }
+                        },
                     ],
                 },
             };
