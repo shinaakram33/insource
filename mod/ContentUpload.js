@@ -151,6 +151,11 @@ ACE.mod('ContentUpload', function (ace) {
                                             cls: 'form-control',
                                             accept: '.pdf',
                                             required: 'required',
+                                            on: {
+                                                change: (e) => {
+                                                    console.log(e.target.files[0].size);
+                                                },
+                                            },
                                             ini: (m) => {
                                                 fileACI = m;
                                             },
