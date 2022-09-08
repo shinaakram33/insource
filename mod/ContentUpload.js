@@ -14,6 +14,7 @@ ACE.mod('ContentUpload', function (ace) {
         cfg = ace.get.v('cfg');
 
     ace.get('mod', '/mod/LeafMap.js');
+    ace.get('mod', '/mod/Gps.js');
 
     return ContentUpload;
 
@@ -31,6 +32,7 @@ ACE.mod('ContentUpload', function (ace) {
             lonACI,
             formACI,
             mapACI,
+            gpsACI,
             aci = {
                 get: {
                     dat: getData,
@@ -43,6 +45,8 @@ ACE.mod('ContentUpload', function (ace) {
                 aci,
                 ini: cfg.ini,
             };
+
+        getGps();
 
         return ux;
 
@@ -309,7 +313,6 @@ ACE.mod('ContentUpload', function (ace) {
                         // zoom: zoom,
                         ini: function (m) {
                             window.mapACI = mapACI = m;
-                            iniMap();
                         },
                         modes: {
                             iniTour: function (e) {
@@ -327,7 +330,6 @@ ACE.mod('ContentUpload', function (ace) {
                                 loc.zoom = 17; // Fix.
                                 setLoc(loc);
                                 pauseTracking = 1;
-                                // addMsg('*** mapACI CLICKED! loc: ', loc);
                             },
                         },
                     },
@@ -339,18 +341,24 @@ ACE.mod('ContentUpload', function (ace) {
         function setLoc(v, r) {
             var poi = (v && is.obj(v)) || '',
                 lat = poi.lat,
-                lon = poi.lon,
-                loc = { lat, lon },
-                msg = 'lat: ' + lat + ', lon: ' + lon + ' -- ';
+                lon = poi.lon;
 
             latACI.set('val', lat);
             lonACI.set('val', lon);
             mapACI.set('loc', v, r); // Fix. Manage parameters.
-            // outputDiv.set('lbl',msg+now());
         } //setLoc()
 
-        function iniMap() {
-            //nothing here yet
-        }
+        function getGps(){
+            if (!ace.get.gps) { return tic(getGps); }
+            gpsACI = ace.get.gps();
+            gpsACI.add('move', handleMove);
+            // gpsACI.exe('follow', 1000);
+        }//getGps()
+        
+        
+        function handleMove(pos){
+            pos.zoom = 17;  // Fix.
+            setLoc(pos);
+        }//handleMove()
     }
 });
