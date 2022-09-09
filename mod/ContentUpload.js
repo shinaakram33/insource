@@ -144,14 +144,9 @@ ACE.mod('ContentUpload', function (ace) {
                                                 typ: 'input',
                                                 id: 'formAuthor',
                                                 cls: 'form-control',
-                                                required: 'required',
                                                 ini: (m) => {
                                                     authorACI = m;
                                                 },
-                                            },
-                                            {
-                                                cls: 'invalid-feedback',
-                                                lbl: 'Please provide a valid author name.',
                                             },
                                         ],
                                     },
@@ -162,21 +157,18 @@ ACE.mod('ContentUpload', function (ace) {
                                                 typ: 'label',
                                                 for: 'formFile',
                                                 cls: 'form-label',
-                                                lbl: 'File upload',
+                                                lbl: 'Upload Image',
                                             },
                                             {
                                                 typ: 'input',
                                                 id: 'formFile',
                                                 type: 'file',
                                                 cls: 'form-control',
-                                                accept: '.pdf',
+                                                accept: 'image/*',
                                                 required: 'required',
                                                 on: {
                                                     change: (e) => {
-                                                        console.log(
-                                                            e.target.files[0]
-                                                                .size
-                                                        );
+                                                        console.log(e.target.files[0].size);
                                                     },
                                                 },
                                                 ini: (m) => {
@@ -185,10 +177,14 @@ ACE.mod('ContentUpload', function (ace) {
                                             },
                                             {
                                                 cls: 'invalid-feedback',
-                                                lbl: 'Please select a PDF document.',
+                                                lbl: 'Please select an image.',
                                             },
                                         ],
                                     },
+                                ],
+                            },
+                            {
+                                dom: [
                                     {
                                         cls: 'mb-3',
                                         dom: [
@@ -204,14 +200,21 @@ ACE.mod('ContentUpload', function (ace) {
                                                 type: 'file',
                                                 cls: 'form-control',
                                                 accept: 'audio/*',
-                                                required: 'required',
                                                 ini: (m) => {
                                                     audioACI = m;
                                                 },
+                                                on: {
+                                                    change: (e) => {
+                                                        if (audioACI.get.v('val') !== '') {
+                                                            audioACI.set('cls', 'is-valid');
+                                                            audioACI.rem('cls', 'is-invalid');
+                                                        }
+                                                    },
+                                                }
                                             },
                                             {
                                                 cls: 'invalid-feedback',
-                                                lbl: 'Please select an audio file.',
+                                                lbl: 'Please select an audio file or enter the story as text below.',
                                             },
                                         ],
                                     },
@@ -228,14 +231,17 @@ ACE.mod('ContentUpload', function (ace) {
                                                 typ: 'textarea',
                                                 id: 'formStory',
                                                 cls: 'form-control',
-                                                required: 'required',
                                                 ini: (m) => {
                                                     textACI = m;
                                                 },
-                                            },
-                                            {
-                                                cls: 'invalid-feedback',
-                                                lbl: 'Please provide a text story.',
+                                                on: {
+                                                    change: (e) => {
+                                                        if (textACI.get.v('val') !== '') {
+                                                            textACI.set('cls', 'is-valid');
+                                                            textACI.rem('cls', 'is-invalid');
+                                                        }
+                                                    },
+                                                }
                                             },
                                         ],
                                     },
@@ -292,11 +298,7 @@ ACE.mod('ContentUpload', function (ace) {
                                             type: 'submit',
                                             lbl: 'Submit',
                                             on: {
-                                                click: (e) => {
-                                                    const o = getData();
-                                                    console.log(o);
-                                                    // submit(o);
-                                                },
+                                                click: handleSubmit,
                                             },
                                         },
                                     },
@@ -338,6 +340,21 @@ ACE.mod('ContentUpload', function (ace) {
             return dom;
         }
 
+        function handleSubmit(e) {
+            let form = formACI.get.v('ele');
+            let isValid = form.checkValidity();
+            form.classList.add('was-validated')
+            const o = getData();
+            if (o.text === '' && o.audio === '') {
+                textACI.set('cls', 'is-invalid');
+                audioACI.set('cls', 'is-invalid');
+                isValid = false;
+            } else {
+                textACI.rem('cls', 'is-invalid');
+                audioACI.rem('cls', 'is-invalid');
+            }
+        }
+
         function setLoc(v, r) {
             var poi = (v && is.obj(v)) || '',
                 lat = poi.lat,
@@ -348,17 +365,18 @@ ACE.mod('ContentUpload', function (ace) {
             mapACI.set('loc', v, r); // Fix. Manage parameters.
         } //setLoc()
 
-        function getGps(){
-            if (!ace.get.gps) { return tic(getGps); }
+        function getGps() {
+            if (!ace.get.gps) {
+                return tic(getGps);
+            }
             gpsACI = ace.get.gps();
             gpsACI.add('move', handleMove);
-            // gpsACI.exe('follow', 1000);
-        }//getGps()
-        
-        
-        function handleMove(pos){
-            pos.zoom = 17;  // Fix.
+            gpsACI.exe('follow', 1000);
+        } //getGps()
+
+        function handleMove(pos) {
+            pos.zoom = 17; // Fix.
             setLoc(pos);
-        }//handleMove()
+        } //handleMove()
     }
 });
