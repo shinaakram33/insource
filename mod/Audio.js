@@ -18,7 +18,7 @@ ACE.mod('Audio', function (ace) {
     return Audio;
 
     function Audio(cfg) {
-        let id = cfg.id || 'audio-' + now(),
+        let id = cfg.id || 'audio-' + now() * 10, //fix
             playerId = id + '-player',
             media = cfg.media,
             aci = {
@@ -31,7 +31,6 @@ ACE.mod('Audio', function (ace) {
                 },
             },
             ux = {
-                css: { mt: '100px'},
                 id,
                 aci,
                 dom: iniDom(),
