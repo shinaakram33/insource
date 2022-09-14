@@ -19,6 +19,7 @@ ACE.mod('Audio', function (ace) {
 
     function Audio(cfg) {
         let id = cfg.id || 'audio-' + Math.round(now()), //fix
+            hidden = cfg.hide,
             playerId = id + '-player',
             media = cfg.media,
             aci = {
@@ -31,6 +32,9 @@ ACE.mod('Audio', function (ace) {
                 },
             },
             ux = {
+                css: {
+                    display: hidden ? 'none' : 'block',
+                },
                 id,
                 aci,
                 dom: iniDom(),
