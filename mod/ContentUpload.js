@@ -13,6 +13,9 @@ ACE.mod('ContentUpload', function (ace) {
         COM = ace.get.v('com'),
         cfg = ace.get.v('cfg');
 
+    const SELECT_AUDIO_OR_TEXT_ERROR = "Please select an audio file or enter the story as text below.";
+    const FILE_TOO_LARGE_ERROR = "File size should not be greater than 10 MB.";
+
     ace.get('mod', '/mod/LeafMap.js');
     ace.get('mod', '/mod/Gps.js');
 
@@ -27,6 +30,7 @@ ACE.mod('ContentUpload', function (ace) {
             authorACI,
             fileACI,
             audioACI,
+            storyErrorACI,
             textACI,
             latACI,
             lonACI,
@@ -166,11 +170,6 @@ ACE.mod('ContentUpload', function (ace) {
                                                 cls: 'form-control',
                                                 accept: 'image/*',
                                                 required: 'required',
-                                                on: {
-                                                    change: (e) => {
-                                                        console.log(e.target.files[0].size);
-                                                    },
-                                                },
                                                 ini: (m) => {
                                                     fileACI = m;
                                                 },
@@ -199,22 +198,32 @@ ACE.mod('ContentUpload', function (ace) {
                                                 id: 'formAudio',
                                                 type: 'file',
                                                 cls: 'form-control',
-                                                accept: 'audio/*',
+                                                accept: '.mp3',
                                                 ini: (m) => {
                                                     audioACI = m;
                                                 },
                                                 on: {
                                                     change: (e) => {
                                                         if (audioACI.get.v('val') !== '') {
-                                                            audioACI.set('cls', 'is-valid');
-                                                            audioACI.rem('cls', 'is-invalid');
+                                                            if (e.target.files[0].size > 1000000) {
+                                                                audioACI.add('cls', 'is-invalid');
+                                                                storyErrorACI.set('lbl', FILE_TOO_LARGE_ERROR);
+                                                            } else {
+                                                                storyErrorACI.set('lbl', SELECT_AUDIO_OR_TEXT_ERROR);
+                                                                audioACI.add('cls', 'is-valid');
+                                                                audioACI.rem('cls', 'is-invalid');
+                                                                textACI.rem('cls', 'is-invalid');
+                                                            }
                                                         }
                                                     },
                                                 }
                                             },
                                             {
                                                 cls: 'invalid-feedback',
-                                                lbl: 'Please select an audio file or enter the story as text below.',
+                                                ini: (m) => {
+                                                    storyErrorACI = m;
+                                                },
+                                                lbl: SELECT_AUDIO_OR_TEXT_ERROR,
                                             },
                                         ],
                                     },
@@ -237,8 +246,14 @@ ACE.mod('ContentUpload', function (ace) {
                                                 on: {
                                                     change: (e) => {
                                                         if (textACI.get.v('val') !== '') {
-                                                            textACI.set('cls', 'is-valid');
+                                                            textACI.add('cls', 'is-valid');
                                                             textACI.rem('cls', 'is-invalid');
+                                                            if (audioACI.get.v('ele').files[0]?.size > 1000000) {
+                                                                audioACI.add('cls', 'is-invalid');
+                                                                storyErrorACI.set('lbl', FILE_TOO_LARGE_ERROR);
+                                                            } else {
+                                                                audioACI.rem('cls', 'is-invalid');
+                                                            }
                                                         }
                                                     },
                                                 }
@@ -345,13 +360,21 @@ ACE.mod('ContentUpload', function (ace) {
             let isValid = form.checkValidity();
             form.classList.add('was-validated')
             const o = getData();
+            storyErrorACI.set('lbl', SELECT_AUDIO_OR_TEXT_ERROR);
             if (o.text === '' && o.audio === '') {
                 textACI.set('cls', 'is-invalid');
                 audioACI.set('cls', 'is-invalid');
                 isValid = false;
             } else {
-                textACI.rem('cls', 'is-invalid');
-                audioACI.rem('cls', 'is-invalid');
+                if (audioACI.get.v('ele').files[0]?.size > 1000000)
+                {
+                    audioACI.add('cls', 'is-invalid');
+                    storyErrorACI.set('lbl', FILE_TOO_LARGE_ERROR);
+                    isValid = false;
+                } else {
+                    textACI.rem('cls', 'is-invalid');
+                    audioACI.rem('cls', 'is-invalid');
+                }
             }
         }
 
