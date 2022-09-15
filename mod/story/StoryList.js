@@ -10,7 +10,7 @@ ACE.mod('StoryList', function (ace) {
             cls = 'story-list',
             ux = {
                 id,
-                cls: cls + ' m-3 d-flex justify-content-center',
+                cls: cls + ' m-3',
                 dom: iniDom(),
                 ini: config.ini,
             };
