@@ -394,7 +394,7 @@ ACE.mod('ContentUpload', function (ace) {
             }
             gpsACI = ace.get.gps();
             gpsACI.add('move', handleMove);
-            gpsACI.exe('follow', 1000);
+            // gpsACI.exe('follow', 1000);
         } //getGps()
 
         function handleMove(pos) {
