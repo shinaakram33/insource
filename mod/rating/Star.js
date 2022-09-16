@@ -9,7 +9,8 @@ ACE.mod('Star', function (ace) {
     function Star(cfg) {
         let id = cfg.id || 'star-' + now(),
             pos = cfg.pos,
-            startSelected = cfg.startSelected,
+            starSelected = cfg.starSelected,
+            starHovered = cfg.starHovered,
             aci = {
                 set: {
                     active: setActive,
@@ -31,6 +32,7 @@ ACE.mod('Star', function (ace) {
                 ini,
                 on: {
                     click: handleClick,
+                    mouseover: handleHover,
                 }
             };
 
@@ -41,9 +43,12 @@ ACE.mod('Star', function (ace) {
             is.fnc(cfg.ini, m);
         }
 
+        function handleHover() {
+            starHovered(pos);
+        }
 
         function handleClick() {
-            startSelected(pos);
+            starSelected(pos);
         }
 
         function setActive() {
