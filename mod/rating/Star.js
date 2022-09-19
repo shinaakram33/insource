@@ -2,8 +2,6 @@ ACE.mod('Star', function (ace) {
     var now = ace.now,
         is = ace.is;
 
-    ace.get('mod', 'mod/story/StoryItem.js');
-
     return Star;
 
     function Star(cfg) {
