@@ -6,17 +6,46 @@ ACE.mod('StoryItem', function (ace) {
 
     return StoryItem;
 
-    function StoryItem(config) {
-        let id = config.id || 'story-item' + now(),
+    function StoryItem(cfg) {
+        let id = cfg.id || 'story-item' + now(),
             cls = 'story-item',
+            audioRating = cfg.audioRating || 0,
+            relevRating = cfg.relevRating || 0,
+            complRating = cfg.complRating || 0,
+            rateACIList = [],
+            aci = {
+                get: {
+                    dat: getDat,
+                    rank: getSortingRank,
+                },
+            },
             ux = {
                 id,
                 cls: cls + ' d-inline-block m-3',
                 dom: iniDom(),
-                ini: config.ini,
+                aci,
+                ini: cfg.ini,
             };
 
         return ux;
+
+        function getDat() {
+            return {
+                id,
+                audioRating: rateACIList[0].get.v('dat').rating,
+                relevRating: rateACIList[1].get.v('dat').rating,
+                complRating: rateACIList[2].get.v('dat').rating,
+            };
+        }
+
+        function getSortingRank() {
+            let rated = 0;
+            rateACIList.forEach(rate => {
+                if (rate.get.v('isRated'))
+                    rated++;
+            });
+            return rated;
+        }
 
         function iniDom() {
             let dom = [
@@ -69,6 +98,10 @@ ACE.mod('StoryItem', function (ace) {
                                                             },
                                                             {
                                                                 mod: 'Rate',
+                                                                rating: audioRating,
+                                                                ini: (m) => {
+                                                                    rateACIList[0] = m;
+                                                                },
                                                             },
                                                         ],
                                                     },
@@ -82,6 +115,10 @@ ACE.mod('StoryItem', function (ace) {
                                                             },
                                                             {
                                                                 mod: 'Rate',
+                                                                rating: relevRating,
+                                                                ini: (m) => {
+                                                                    rateACIList[1] = m;
+                                                                },
                                                             },
                                                         ],
                                                     },
@@ -95,6 +132,10 @@ ACE.mod('StoryItem', function (ace) {
                                                             },
                                                             {
                                                                 mod: 'Rate',
+                                                                rating: complRating,
+                                                                ini: (m) => {
+                                                                    rateACIList[2] = m;
+                                                                },
                                                             },
                                                         ],
                                                     },

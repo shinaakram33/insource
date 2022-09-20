@@ -7,6 +7,7 @@ ACE.mod('Star', function (ace) {
     function Star(cfg) {
         let id = cfg.id || 'star-' + now(),
             pos = cfg.pos,
+            active = cfg.active || false,
             starSelected = cfg.starSelected,
             starHovered = cfg.starHovered,
             aci = {
@@ -22,7 +23,7 @@ ACE.mod('Star', function (ace) {
             ux = {
                 typ: 'a',
                 id,
-                cls: 'bi bi-star',
+                cls: 'bi bi-star' + (active ? '-fill' : ''),
                 aci,
                 css: {
                     color: 'red',
@@ -31,7 +32,7 @@ ACE.mod('Star', function (ace) {
                 on: {
                     click: handleClick,
                     mouseover: handleHover,
-                }
+                },
             };
 
         return ux;

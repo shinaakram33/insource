@@ -8,7 +8,13 @@ ACE.mod('Rate', function (ace) {
     function Rate(cfg) {
         let id = cfg.id || 'rate-' + now(),
             starsACI = [],
-            rating = 0,
+            rating = cfg.rating || 0,
+            aci = {
+                get: {
+                    dat: getDat,
+                    isRated: getIsRated,
+                },
+            },
             ux = {
                 id,
                 css: {
@@ -16,12 +22,23 @@ ACE.mod('Rate', function (ace) {
                 },
                 dom: iniDom(),
                 ini: cfg.ini,
+                aci,
                 on: {
                     mouseleave: () => starHovered(rating),
                 },
             };
 
         return ux;
+
+        function getDat() {
+            return {
+                rating,
+            };
+        }
+
+        function getIsRated() {
+            return rating > 0;
+        }
 
         function iniDom() {
             return [
@@ -30,6 +47,7 @@ ACE.mod('Rate', function (ace) {
                     pos: 1,
                     starSelected,
                     starHovered,
+                    active: rating > 0,
                     ini: (m) => {
                         starsACI[0] = m;
                     },
@@ -39,6 +57,7 @@ ACE.mod('Rate', function (ace) {
                     pos: 2,
                     starSelected,
                     starHovered,
+                    active: rating > 1,
                     ini: (m) => {
                         starsACI[1] = m;
                     },
@@ -48,6 +67,7 @@ ACE.mod('Rate', function (ace) {
                     pos: 3,
                     starSelected,
                     starHovered,
+                    active: rating > 2,
                     ini: (m) => {
                         starsACI[2] = m;
                     },
@@ -57,6 +77,7 @@ ACE.mod('Rate', function (ace) {
                     pos: 4,
                     starSelected,
                     starHovered,
+                    active: rating > 3,
                     ini: (m) => {
                         starsACI[3] = m;
                     },
@@ -66,6 +87,7 @@ ACE.mod('Rate', function (ace) {
                     pos: 5,
                     starSelected,
                     starHovered,
+                    active: rating > 4,
                     ini: (m) => {
                         starsACI[4] = m;
                     },
