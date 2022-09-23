@@ -1,7 +1,8 @@
 ACE(function (ace) {
     var DOM = ace.get.v('dom'),
         contentUploadACI,
-        storyListACI;
+        storyListACI,
+        storyACI;
 
     ace.get('mod', 'mod/ContentUpload.js');
     ace.get('mod', 'mod/story/StoryList.js');
@@ -50,7 +51,9 @@ ACE(function (ace) {
                                         {
                                             typ: 'li',
                                             cls: 'nav-item',
-                                            dom: [{ typ: 'a', cls: 'nav-link', href: '#', lbl: 'Rate Stories' }],
+                                            dom: [
+                                                { typ: 'a', cls: 'nav-link', href: '#', lbl: 'Rate Stories' },
+                                            ],
                                             on: {
                                                 click: () => {
                                                     contentUploadACI.set('css', { display: 'none' });
@@ -85,6 +88,18 @@ ACE(function (ace) {
             },
             dom: {
                 mod: 'StoryList',
+                ini: (m) => {
+                    storyACI = m;
+                    setTimeout(() => {
+                        storyACI.set('dat', [
+                            { title: 'Story title 1' },
+                            { title: 'Story title 2' },
+                            { title: 'Story title 3' },
+                            { title: 'Story title 4' },
+                            { title: 'Story title 5' },
+                        ]);
+                    }, 1000);
+                },
             },
         },
     ]);
