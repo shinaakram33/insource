@@ -6,11 +6,14 @@ ACE.mod('Sort', function (ace) {
 
     function Sort(cfg) {
         let id = cfg.id || 'sort-' + now(),
-            items = cfg.items,
+            items = cfg.items || [],
             itemsACI = [],
             aci = {
                 set: {
                     dat: sortData,
+                },
+                add: {
+                    dat: addData,
                 },
             },
             ux = {
@@ -28,11 +31,21 @@ ACE.mod('Sort', function (ace) {
             is.fnc(cfg.ini, m);
         }
 
+        function addData(v) {
+            let ini = v.ini;
+            v.ini = (m) => {
+                itemsACI[itemsACI.length] = m;
+                is.fnc(ini,m);
+            };
+            items.push(v);
+            me.add(v);
+        }
+
         function iniDom() {
             let dom = [];
             items?.forEach((itm, i) => {
                 let ini = itm.ini;
-                itm.ini = function(m){
+                itm.ini = (m) => {
 					itemsACI[i] = m;
 					is.fnc(ini,m);
 				};
@@ -48,7 +61,7 @@ ACE.mod('Sort', function (ace) {
             } else {
                 itemsACI.sort((a, b) => b.get.v('rank') - a.get.v('rank'));
             }
-            sorted = itemsACI.map((itm, i) => ({ ...items[i], ...itm.get.v('dat') }));
+            sorted = itemsACI.map((itm, i) => ({ ...items[i], ...itm.get.v('cfg') }));
             itemsACI.forEach((itm) => itm.del());
             itemsACI = [];
             sorted.forEach((itm) => me.add(itm));

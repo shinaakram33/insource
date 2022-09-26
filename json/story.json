@@ -1,0 +1,15 @@
+{
+    "id": "",
+    "title": "",
+    "description": "",
+    "author": "",
+    "image": "/path",
+    "audio": "",
+    "text": "",
+    "poi": "",
+    "rate": {
+        "relevance": 0,
+        "quality": 0,
+        "speaker": 0
+    }
+}

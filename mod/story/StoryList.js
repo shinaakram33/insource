@@ -31,11 +31,25 @@ ACE.mod('StoryList', function (ace) {
         return ux;
 
         function setDat(v) {
-            // todo
+            v.forEach((o) =>
+                sortACI.add('dat',{
+                    mod: 'StoryItem',
+                    ini: (m) => {
+                        storiesACI.push(m);
+                    },
+                    ...o,
+                })
+            );
         }
 
         function addDat(v) {
-            // todo
+            sortACI.add('dat',{
+                mod: 'StoryItem',
+                ini: (m) => {
+                    storiesACI.push(m);
+                },
+                ...v,
+            });
         }
 
         function sort(v) {
@@ -80,38 +94,6 @@ ACE.mod('StoryList', function (ace) {
                         ini: (m) => {
                             sortACI = m;
                         },
-                        items: [
-                            {
-                                mod: 'StoryItem',
-                                ini: (m) => {
-                                    storiesACI[0] = m;
-                                },
-                            },
-                            {
-                                mod: 'StoryItem',
-                                ini: (m) => {
-                                    storiesACI[1] = m;
-                                },
-                            },
-                            {
-                                mod: 'StoryItem',
-                                ini: (m) => {
-                                    storiesACI[2] = m;
-                                },
-                            },
-                            {
-                                mod: 'StoryItem',
-                                ini: (m) => {
-                                    storiesACI[3] = m;
-                                },
-                            },
-                            {
-                                mod: 'StoryItem',
-                                ini: (m) => {
-                                    storiesACI[4] = m;
-                                },
-                            },
-                        ],
                     },
                 },
             ];

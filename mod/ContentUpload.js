@@ -15,6 +15,7 @@ ACE.mod('ContentUpload', function (ace) {
 
     const SELECT_AUDIO_OR_TEXT_ERROR = "Please select an audio file or enter the story as text below.";
     const FILE_TOO_LARGE_ERROR = "File size should not be greater than 10 MB.";
+    const FILE_SIZE = 10000000;
 
     ace.get('mod', '/mod/LeafMap.js');
     ace.get('mod', '/mod/Gps.js');
@@ -205,7 +206,7 @@ ACE.mod('ContentUpload', function (ace) {
                                                 on: {
                                                     change: (e) => {
                                                         if (audioACI.get.v('val') !== '') {
-                                                            if (e.target.files[0].size > 1000000) {
+                                                            if (e.target.files[0].size > FILE_SIZE) {
                                                                 audioACI.add('cls', 'is-invalid');
                                                                 storyErrorACI.set('lbl', FILE_TOO_LARGE_ERROR);
                                                             } else {
@@ -248,7 +249,7 @@ ACE.mod('ContentUpload', function (ace) {
                                                         if (textACI.get.v('val') !== '') {
                                                             textACI.add('cls', 'is-valid');
                                                             textACI.rem('cls', 'is-invalid');
-                                                            if (audioACI.get.v('ele').files[0]?.size > 1000000) {
+                                                            if (audioACI.get.v('ele').files[0]?.size > FILE_SIZE) {
                                                                 audioACI.add('cls', 'is-invalid');
                                                                 storyErrorACI.set('lbl', FILE_TOO_LARGE_ERROR);
                                                             } else {
@@ -355,10 +356,10 @@ ACE.mod('ContentUpload', function (ace) {
             return dom;
         }
 
-        function handleSubmit(e) {
+        async function handleSubmit(e) {
             let form = formACI.get.v('ele');
             let isValid = form.checkValidity();
-            form.classList.add('was-validated')
+            form.classList.add('was-validated');
             const o = getData();
             storyErrorACI.set('lbl', SELECT_AUDIO_OR_TEXT_ERROR);
             if (o.text === '' && o.audio === '') {
@@ -366,7 +367,7 @@ ACE.mod('ContentUpload', function (ace) {
                 audioACI.set('cls', 'is-invalid');
                 isValid = false;
             } else {
-                if (audioACI.get.v('ele').files[0]?.size > 1000000)
+                if (audioACI.get.v('ele').files[0]?.size > FILE_SIZE)
                 {
                     audioACI.add('cls', 'is-invalid');
                     storyErrorACI.set('lbl', FILE_TOO_LARGE_ERROR);
@@ -375,6 +376,14 @@ ACE.mod('ContentUpload', function (ace) {
                     textACI.rem('cls', 'is-invalid');
                     audioACI.rem('cls', 'is-invalid');
                 }
+            }
+            if (isValid) {
+                const data = new URLSearchParams(new FormData(form));
+                let response = await fetch("https://iftheseroadscouldtalk.com/", {
+                    method: 'POST',
+                    body: data,
+                });
+                console.log(response);
             }
         }
 

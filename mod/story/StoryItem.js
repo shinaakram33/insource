@@ -12,11 +12,16 @@ ACE.mod('StoryItem', function (ace) {
             audioRating = cfg.audioRating || 0,
             relevRating = cfg.relevRating || 0,
             complRating = cfg.complRating || 0,
+            title = cfg.title,
             rateACIList = [],
             aci = {
                 get: {
                     dat: getDat,
                     rank: getSortingRank,
+                    cfg: getCfg,
+                },
+                set: {
+                    dat: setDat,
                 },
             },
             ux = {
@@ -30,11 +35,20 @@ ACE.mod('StoryItem', function (ace) {
         return ux;
 
         function getDat() {
+            //todo
+        }
+
+        function setDat() {
+            //todo
+        }
+
+        function getCfg() {
             return {
                 id,
                 audioRating: rateACIList[0].get.v('dat').rating,
                 relevRating: rateACIList[1].get.v('dat').rating,
                 complRating: rateACIList[2].get.v('dat').rating,
+                title,
             };
         }
 
@@ -74,7 +88,7 @@ ACE.mod('StoryItem', function (ace) {
                                     dom: {
                                         cls: 'card-body',
                                         dom: [
-                                            { typ: 'h5', cls: 'card-title', lbl: 'Story title' },
+                                            { typ: 'h5', cls: 'card-title', lbl: title },
                                             {
                                                 typ: 'p',
                                                 cls: 'card-text',
