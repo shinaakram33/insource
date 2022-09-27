@@ -92,11 +92,41 @@ ACE(function (ace) {
                     storyACI = m;
                     setTimeout(() => {
                         storyACI.set('dat', [
-                            { title: 'Story title 1' },
-                            { title: 'Story title 2' },
-                            { title: 'Story title 3' },
-                            { title: 'Story title 4' },
-                            { title: 'Story title 5' },
+                            {
+                                title: 'Story title 1',
+                                author: 'Author',
+                                recordedAt: '27-9-2022',
+                                lat: 31.4646435,
+                                lon: 74.2889282,
+                            },
+                            {
+                                title: 'Story title 2',
+                                author: 'Author',
+                                recordedAt: '27-9-2022',
+                                lat: 31.4646435,
+                                lon: 74.2889282,
+                            },
+                            {
+                                title: 'Story title 3',
+                                author: 'Author',
+                                recordedAt: '27-9-2022',
+                                lat: 31.4646435,
+                                lon: 74.2889282,
+                            },
+                            {
+                                title: 'Story title 4',
+                                author: 'Author',
+                                recordedAt: '27-9-2022',
+                                lat: 31.4646435,
+                                lon: 74.2889282,
+                            },
+                            {
+                                title: 'Story title 5',
+                                author: 'Author',
+                                recordedAt: '27-9-2022',
+                                lat: 31.4646435,
+                                lon: 74.2889282,
+                            },
                         ]);
                     }, 1000);
                 },

@@ -16,6 +16,7 @@ ACE.mod('ContentUpload', function (ace) {
     const SELECT_AUDIO_OR_TEXT_ERROR = "Please select an audio file or enter the story as text below.";
     const FILE_TOO_LARGE_ERROR = "File size should not be greater than 10 MB.";
     const FILE_SIZE = 10000000;
+    const BACKEND_URL = "https://iftheseroadscouldtalk.com/";
 
     ace.get('mod', '/mod/LeafMap.js');
     ace.get('mod', '/mod/Gps.js');
@@ -102,6 +103,7 @@ ACE.mod('ContentUpload', function (ace) {
                                                 id: 'formTitle',
                                                 cls: 'form-control',
                                                 required: 'required',
+                                                name: 'title',
                                                 ini: (m) => {
                                                     titleACI = m;
                                                 },
@@ -126,6 +128,7 @@ ACE.mod('ContentUpload', function (ace) {
                                                 id: 'formDesc',
                                                 cls: 'form-control',
                                                 required: 'required',
+                                                name: 'desc',
                                                 ini: (m) => {
                                                     descACI = m;
                                                 },
@@ -149,6 +152,7 @@ ACE.mod('ContentUpload', function (ace) {
                                                 typ: 'input',
                                                 id: 'formAuthor',
                                                 cls: 'form-control',
+                                                name: 'author',
                                                 ini: (m) => {
                                                     authorACI = m;
                                                 },
@@ -171,6 +175,7 @@ ACE.mod('ContentUpload', function (ace) {
                                                 cls: 'form-control',
                                                 accept: 'image/*',
                                                 required: 'required',
+                                                name: 'image',
                                                 ini: (m) => {
                                                     fileACI = m;
                                                 },
@@ -200,6 +205,7 @@ ACE.mod('ContentUpload', function (ace) {
                                                 type: 'file',
                                                 cls: 'form-control',
                                                 accept: '.mp3',
+                                                name: 'audio',
                                                 ini: (m) => {
                                                     audioACI = m;
                                                 },
@@ -241,6 +247,7 @@ ACE.mod('ContentUpload', function (ace) {
                                                 typ: 'textarea',
                                                 id: 'formStory',
                                                 cls: 'form-control',
+                                                name: 'text',
                                                 ini: (m) => {
                                                     textACI = m;
                                                 },
@@ -278,6 +285,7 @@ ACE.mod('ContentUpload', function (ace) {
                                                         cls: 'form-control',
                                                         id: 'formLat',
                                                         readonly: 'readonly',
+                                                        name: 'lat',
                                                         ini: (m) => {
                                                             latACI = m;
                                                         },
@@ -298,6 +306,7 @@ ACE.mod('ContentUpload', function (ace) {
                                                         cls: 'form-control',
                                                         id: 'formLon',
                                                         readonly: 'readonly',
+                                                        name: 'lon',
                                                         ini: (m) => {
                                                             lonACI = m;
                                                         },
@@ -378,8 +387,12 @@ ACE.mod('ContentUpload', function (ace) {
                 }
             }
             if (isValid) {
-                const data = new URLSearchParams(new FormData(form));
-                let response = await fetch("https://iftheseroadscouldtalk.com/", {
+                const data = new FormData(form);
+                data.append('audio', audioACI.get.v('ele').files[0]);
+                data.append('text', textACI.get.v('val'));
+                data.append('lat', latACI.get.v('val'));
+                data.append('lon', lonACI.get.v('val'));
+                let response = await fetch(BACKEND_URL, {
                     method: 'POST',
                     body: data,
                 });

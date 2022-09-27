@@ -14,6 +14,9 @@ ACE.mod('Rate', function (ace) {
                     dat: getDat,
                     isRated: getIsRated,
                 },
+                set: {
+                    dat: starSelected,
+                },
             },
             ux = {
                 id,

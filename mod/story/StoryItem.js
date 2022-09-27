@@ -7,16 +7,27 @@ ACE.mod('StoryItem', function (ace) {
     return StoryItem;
 
     function StoryItem(cfg) {
-        let id = cfg.id || 'story-item' + now(),
+        let {
+                id = 'story-item' + now(),
+                audioRating = 0,
+                relevRating = 0,
+                complRating = 0,
+                title,
+                author,
+                recordedAt,
+                lat,
+                lon,
+            } = cfg,
             cls = 'story-item',
-            audioRating = cfg.audioRating || 0,
-            relevRating = cfg.relevRating || 0,
-            complRating = cfg.complRating || 0,
-            title = cfg.title,
+            titleACI,
+            authorACI,
+            recordedAtACI,
+            latACI,
+            lonACI,
             rateACIList = [],
             aci = {
                 get: {
-                    dat: getDat,
+                    dat: getCfg,
                     rank: getSortingRank,
                     cfg: getCfg,
                 },
@@ -34,12 +45,16 @@ ACE.mod('StoryItem', function (ace) {
 
         return ux;
 
-        function getDat() {
-            //todo
-        }
-
-        function setDat() {
-            //todo
+        function setDat(v) {
+            if (!v) return;
+            rateACIList[0].set('dat', v.audioRating);
+            rateACIList[1].set('dat', v.relevRating);
+            rateACIList[2].set('dat', v.complRating);
+            titleACI.set('dat', v.title);
+            authorACI.set('dat', 'By ' + v.author);
+            recordedAtACI.set('dat', 'Date Recorded: ' + v.recordedAt);
+            latACI.set('dat', 'Location: ' + v.lat);
+            lonACI.set('dat', ', ' + v.lon);
         }
 
         function getCfg() {
@@ -49,6 +64,10 @@ ACE.mod('StoryItem', function (ace) {
                 relevRating: rateACIList[1].get.v('dat').rating,
                 complRating: rateACIList[2].get.v('dat').rating,
                 title,
+                author,
+                recordedAt,
+                lat,
+                lon,
             };
         }
 
@@ -94,13 +113,34 @@ ACE.mod('StoryItem', function (ace) {
                                                 cls: 'card-text',
                                                 dom: [
                                                     {
-                                                        lbl: 'By Author',
+                                                        lbl: 'By ' + author,
+                                                        ini: (m) => {
+                                                            authorACI = m;
+                                                        },
                                                     },
                                                     {
-                                                        lbl: 'Date Recorded: 15-09-2022',
+                                                        lbl: 'Date Recorded: ' + recordedAt,
+                                                        ini: (m) => {
+                                                            recordedAtACI = m;
+                                                        },
                                                     },
                                                     {
-                                                        lbl: 'Location: 38.3964, -76.86118',
+                                                        dom: [
+                                                            {
+                                                                typ: 'span',
+                                                                lbl: 'Location: ' + lat,
+                                                                ini: (m) => {
+                                                                    latACI = m;
+                                                                },
+                                                            },
+                                                            {
+                                                                typ: 'span',
+                                                                lbl: ', ' + lon,
+                                                                ini: (m) => {
+                                                                    lonACI = m;
+                                                                },
+                                                            },
+                                                        ],
                                                     },
                                                     {
                                                         css: { display: 'flex' },
