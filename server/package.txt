@@ -1,0 +1,6 @@
+nginx
+nodejs
+npm
+cron
+snapd
+postgresql

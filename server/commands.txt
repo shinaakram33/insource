@@ -1,0 +1,7 @@
+package-install package.txt
+snap-install snap.txt
+create-user dev
+copy-files dev
+reset-nginx-config
+create-cert iftheseroadscouldtalk.com 3000 dev
+restart-nginx
