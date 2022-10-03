@@ -9,7 +9,7 @@ ACE(function (ace) {
 
     ace.get('mod', 'mod/PageLayout.js');
     ace.get('mod', src+'mod/SwapContent.js');
-	ace.get('mod', src+'mod/Auth/Auth.js');
+	ace.get('mod', src+'mod/auth/Auth.js');
     ace.get('mod', src+'mod/Dat.js');
 
     iniApp();

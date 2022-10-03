@@ -2,12 +2,12 @@ ACE.mod('AuthLayout', function (ace) {
   var now = ace.now,
 		log = ace.log;
 
-  ace.get('mod', 'mod/Auth/Signup.js');
-  ace.get('mod', 'mod/Auth/Login.js');
-  ace.get('mod', 'mod/Auth/ForgetPassword.js');
-  ace.get('mod', 'mod/Auth/CheckEmail.js');
-  ace.get('mod', 'mod/Auth/ResetPassword.js');
-  ace.get('mod', 'mod/Auth/ConfirmPassword.js');
+  ace.get('mod', 'mod/auth/Signup.js');
+  ace.get('mod', 'mod/auth/Login.js');
+  ace.get('mod', 'mod/auth/ForgetPassword.js');
+  ace.get('mod', 'mod/auth/CheckEmail.js');
+  ace.get('mod', 'mod/auth/ResetPassword.js');
+  ace.get('mod', 'mod/auth/ConfirmPassword.js');
 
   return AuthLayout;
 
