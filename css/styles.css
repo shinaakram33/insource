@@ -16,58 +16,33 @@ body {
 }
 
 .search-icon {
-background-color: var(--white);
-opacity: .5;
-border-radius: 4px;
-height: 26px;
-margin-left: 10px;
+    background-color: var(--white);
+    opacity: .5;
+    border-radius: 4px;
+    height: 26px;
+    margin-left: 10px;
 }
 .icons-container {
     display: flex;
     align-items: center;
 }
-.navbar-brand.website-logo {
+.navbar-brand {
+    cursor: pointer;
     font-weight: bold;
     font-size: 20px;
     line-height: 24px;
-    cursor: pointer;
 }
 .navbar-brand.navbar-link {
     text-align: center;
     color: var(--green);
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 24px;
 }
 .navbar-brand.contest {
     text-align: center;
     color: var(--red);
-    font-size: 20px;
-    line-height: 24px;
-    font-weight: bold;
 }
 .navbar-customize {
     background-color: var(--navbar-bg);
-    position: absolute;
-    top: 0px;
     width: 100%;
-}
-.header-image {
-    width: 100%;
-    height: 400px;
-    background-size: cover;
-    background-image: url(../img/header.jpg);
-    display: flex;
-    flex-direction: column;
-   justify-content: flex-end;
-   position: relative;
-}
-.header-heading {
-    color: var(--white);
-    font-size: 40px;
-    font-weight: normal;
-    text-align: center;
-    padding-bottom: 10px;
 }
 .saperator-bar {
     background-color: var(--red);

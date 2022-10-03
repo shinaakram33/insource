@@ -46,7 +46,7 @@ ACE.mod('ContentUpload', function (ace) {
             },
             ux = {
                 id,
-                cls: cls + ' row',
+                cls: cls + ' container-fluid',
                 dom: iniDom(),
                 aci,
                 ini: cfg.ini,
@@ -70,298 +70,313 @@ ACE.mod('ContentUpload', function (ace) {
         }
 
         function iniDom() {
-            let dom = [
-                {
-                    cls: 'card col-6 m-4',
-                    dom: {
-                        cls: 'card-body',
-                        dom: [
-                            {
-                                typ: 'h3',
-                                cls: 'card-title mb-4',
-                                lbl: 'Upload Story',
-                            },
-                            {
-                                typ: 'form',
-                                cls: 'needs-validation',
-                                novalidate: 'novalidate',
-                                ini: (m) => {
-                                    formACI = m;
+            let dom = {
+                cls: 'row',
+                dom: [
+                    {
+                        cls: 'card col m-4',
+                        dom: {
+                            cls: 'card-body',
+                            dom: [
+                                {
+                                    typ: 'h3',
+                                    cls: 'card-title mb-4',
+                                    lbl: 'Upload Story',
                                 },
-                                dom: [
-                                    {
-                                        cls: 'mb-3',
-                                        dom: [
-                                            {
-                                                typ: 'label',
-                                                for: 'formTitle',
-                                                cls: 'form-label',
-                                                lbl: 'Title',
-                                            },
-                                            {
-                                                typ: 'input',
-                                                id: 'formTitle',
-                                                cls: 'form-control',
-                                                required: 'required',
-                                                name: 'title',
-                                                ini: (m) => {
-                                                    titleACI = m;
-                                                },
-                                            },
-                                            {
-                                                cls: 'invalid-feedback',
-                                                lbl: 'Please provide a valid title.',
-                                            },
-                                        ],
+                                {
+                                    typ: 'form',
+                                    cls: 'needs-validation',
+                                    novalidate: 'novalidate',
+                                    ini: (m) => {
+                                        formACI = m;
                                     },
-                                    {
-                                        cls: 'mb-3',
-                                        dom: [
-                                            {
-                                                typ: 'label',
-                                                for: 'formDesc',
-                                                cls: 'form-label',
-                                                lbl: 'Description',
-                                            },
-                                            {
-                                                typ: 'input',
-                                                id: 'formDesc',
-                                                cls: 'form-control',
-                                                required: 'required',
-                                                name: 'desc',
-                                                ini: (m) => {
-                                                    descACI = m;
+                                    dom: [
+                                        {
+                                            cls: 'mb-3',
+                                            dom: [
+                                                {
+                                                    typ: 'label',
+                                                    for: 'formTitle',
+                                                    cls: 'form-label',
+                                                    lbl: 'Title',
                                                 },
-                                            },
-                                            {
-                                                cls: 'invalid-feedback',
-                                                lbl: 'Please provide a valid description.',
-                                            },
-                                        ],
-                                    },
-                                    {
-                                        cls: 'mb-3',
-                                        dom: [
-                                            {
-                                                typ: 'label',
-                                                for: 'formAuthor',
-                                                cls: 'form-label',
-                                                lbl: 'Author',
-                                            },
-                                            {
-                                                typ: 'input',
-                                                id: 'formAuthor',
-                                                cls: 'form-control',
-                                                name: 'author',
-                                                ini: (m) => {
-                                                    authorACI = m;
+                                                {
+                                                    typ: 'input',
+                                                    id: 'formTitle',
+                                                    cls: 'form-control',
+                                                    required: 'required',
+                                                    name: 'title',
+                                                    ini: (m) => {
+                                                        titleACI = m;
+                                                    },
                                                 },
-                                            },
-                                        ],
-                                    },
-                                    {
-                                        cls: 'mb-3',
-                                        dom: [
-                                            {
-                                                typ: 'label',
-                                                for: 'formFile',
-                                                cls: 'form-label',
-                                                lbl: 'Upload Image',
-                                            },
-                                            {
-                                                typ: 'input',
-                                                id: 'formFile',
-                                                type: 'file',
-                                                cls: 'form-control',
-                                                accept: 'image/*',
-                                                required: 'required',
-                                                name: 'image',
-                                                ini: (m) => {
-                                                    fileACI = m;
+                                                {
+                                                    cls: 'invalid-feedback',
+                                                    lbl: 'Please provide a valid title.',
                                                 },
-                                            },
-                                            {
-                                                cls: 'invalid-feedback',
-                                                lbl: 'Please select an image.',
-                                            },
-                                        ],
-                                    },
-                                ],
-                            },
-                            {
-                                dom: [
-                                    {
-                                        cls: 'mb-3',
-                                        dom: [
-                                            {
-                                                typ: 'label',
-                                                for: 'formAudio',
-                                                cls: 'form-label',
-                                                lbl: 'Audio upload',
-                                            },
-                                            {
-                                                typ: 'input',
-                                                id: 'formAudio',
-                                                type: 'file',
-                                                cls: 'form-control',
-                                                accept: '.mp3',
-                                                name: 'audio',
-                                                ini: (m) => {
-                                                    audioACI = m;
+                                            ],
+                                        },
+                                        {
+                                            cls: 'mb-3',
+                                            dom: [
+                                                {
+                                                    typ: 'label',
+                                                    for: 'formDesc',
+                                                    cls: 'form-label',
+                                                    lbl: 'Description',
                                                 },
-                                                on: {
-                                                    change: (e) => {
-                                                        if (audioACI.get.v('val') !== '') {
-                                                            if (e.target.files[0].size > FILE_SIZE) {
-                                                                audioACI.add('cls', 'is-invalid');
-                                                                storyErrorACI.set('lbl', FILE_TOO_LARGE_ERROR);
-                                                            } else {
-                                                                storyErrorACI.set('lbl', SELECT_AUDIO_OR_TEXT_ERROR);
-                                                                audioACI.add('cls', 'is-valid');
-                                                                audioACI.rem('cls', 'is-invalid');
+                                                {
+                                                    typ: 'input',
+                                                    id: 'formDesc',
+                                                    cls: 'form-control',
+                                                    required: 'required',
+                                                    name: 'desc',
+                                                    ini: (m) => {
+                                                        descACI = m;
+                                                    },
+                                                },
+                                                {
+                                                    cls: 'invalid-feedback',
+                                                    lbl: 'Please provide a valid description.',
+                                                },
+                                            ],
+                                        },
+                                        {
+                                            cls: 'mb-3',
+                                            dom: [
+                                                {
+                                                    typ: 'label',
+                                                    for: 'formAuthor',
+                                                    cls: 'form-label',
+                                                    lbl: 'Author',
+                                                },
+                                                {
+                                                    typ: 'input',
+                                                    id: 'formAuthor',
+                                                    cls: 'form-control',
+                                                    name: 'author',
+                                                    ini: (m) => {
+                                                        authorACI = m;
+                                                    },
+                                                },
+                                            ],
+                                        },
+                                        {
+                                            cls: 'mb-3',
+                                            dom: [
+                                                {
+                                                    typ: 'label',
+                                                    for: 'formFile',
+                                                    cls: 'form-label',
+                                                    lbl: 'Upload Image',
+                                                },
+                                                {
+                                                    typ: 'input',
+                                                    id: 'formFile',
+                                                    type: 'file',
+                                                    cls: 'form-control',
+                                                    accept: 'image/*',
+                                                    required: 'required',
+                                                    name: 'image',
+                                                    ini: (m) => {
+                                                        fileACI = m;
+                                                    },
+                                                },
+                                                {
+                                                    cls: 'invalid-feedback',
+                                                    lbl: 'Please select an image.',
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                },
+                                {
+                                    dom: [
+                                        {
+                                            cls: 'mb-3',
+                                            dom: [
+                                                {
+                                                    typ: 'label',
+                                                    for: 'formAudio',
+                                                    cls: 'form-label',
+                                                    lbl: 'Audio upload',
+                                                },
+                                                {
+                                                    typ: 'input',
+                                                    id: 'formAudio',
+                                                    type: 'file',
+                                                    cls: 'form-control',
+                                                    accept: '.mp3',
+                                                    name: 'audio',
+                                                    ini: (m) => {
+                                                        audioACI = m;
+                                                    },
+                                                    on: {
+                                                        change: (e) => {
+                                                            if (audioACI.get.v('val') !== '') {
+                                                                if (e.target.files[0].size > FILE_SIZE) {
+                                                                    audioACI.add('cls', 'is-invalid');
+                                                                    storyErrorACI.set(
+                                                                        'lbl',
+                                                                        FILE_TOO_LARGE_ERROR
+                                                                    );
+                                                                } else {
+                                                                    storyErrorACI.set(
+                                                                        'lbl',
+                                                                        SELECT_AUDIO_OR_TEXT_ERROR
+                                                                    );
+                                                                    audioACI.add('cls', 'is-valid');
+                                                                    audioACI.rem('cls', 'is-invalid');
+                                                                    textACI.rem('cls', 'is-invalid');
+                                                                }
+                                                            }
+                                                        },
+                                                    },
+                                                },
+                                                {
+                                                    cls: 'invalid-feedback',
+                                                    ini: (m) => {
+                                                        storyErrorACI = m;
+                                                    },
+                                                    lbl: SELECT_AUDIO_OR_TEXT_ERROR,
+                                                },
+                                            ],
+                                        },
+                                        {
+                                            cls: 'mb-3',
+                                            dom: [
+                                                {
+                                                    typ: 'label',
+                                                    for: 'formStory',
+                                                    cls: 'form-label',
+                                                    lbl: 'Text story upload',
+                                                },
+                                                {
+                                                    typ: 'textarea',
+                                                    id: 'formStory',
+                                                    cls: 'form-control',
+                                                    name: 'text',
+                                                    ini: (m) => {
+                                                        textACI = m;
+                                                    },
+                                                    on: {
+                                                        change: (e) => {
+                                                            if (textACI.get.v('val') !== '') {
+                                                                textACI.add('cls', 'is-valid');
                                                                 textACI.rem('cls', 'is-invalid');
+                                                                if (
+                                                                    audioACI.get.v('ele').files[0]?.size >
+                                                                    FILE_SIZE
+                                                                ) {
+                                                                    audioACI.add('cls', 'is-invalid');
+                                                                    storyErrorACI.set(
+                                                                        'lbl',
+                                                                        FILE_TOO_LARGE_ERROR
+                                                                    );
+                                                                } else {
+                                                                    audioACI.rem('cls', 'is-invalid');
+                                                                }
                                                             }
-                                                        }
+                                                        },
                                                     },
-                                                }
-                                            },
-                                            {
-                                                cls: 'invalid-feedback',
-                                                ini: (m) => {
-                                                    storyErrorACI = m;
                                                 },
-                                                lbl: SELECT_AUDIO_OR_TEXT_ERROR,
-                                            },
-                                        ],
-                                    },
-                                    {
-                                        cls: 'mb-3',
-                                        dom: [
-                                            {
-                                                typ: 'label',
-                                                for: 'formStory',
-                                                cls: 'form-label',
-                                                lbl: 'Text story upload',
-                                            },
-                                            {
-                                                typ: 'textarea',
-                                                id: 'formStory',
-                                                cls: 'form-control',
-                                                name: 'text',
-                                                ini: (m) => {
-                                                    textACI = m;
+                                            ],
+                                        },
+                                        {
+                                            cls: 'row mb-3',
+                                            dom: [
+                                                {
+                                                    cls: 'col-md-6',
+                                                    dom: [
+                                                        {
+                                                            typ: 'label',
+                                                            cls: 'form-label',
+                                                            for: 'formLat',
+                                                            lbl: 'Latitude',
+                                                        },
+                                                        {
+                                                            typ: 'input',
+                                                            cls: 'form-control',
+                                                            id: 'formLat',
+                                                            readonly: 'readonly',
+                                                            name: 'lat',
+                                                            ini: (m) => {
+                                                                latACI = m;
+                                                            },
+                                                        },
+                                                    ],
                                                 },
+                                                {
+                                                    cls: 'col-md-6',
+                                                    dom: [
+                                                        {
+                                                            typ: 'label',
+                                                            cls: 'form-label',
+                                                            for: 'formLon',
+                                                            lbl: 'Longitude',
+                                                        },
+                                                        {
+                                                            typ: 'input',
+                                                            cls: 'form-control',
+                                                            id: 'formLon',
+                                                            readonly: 'readonly',
+                                                            name: 'lon',
+                                                            ini: (m) => {
+                                                                lonACI = m;
+                                                            },
+                                                        },
+                                                    ],
+                                                },
+                                            ],
+                                        },
+                                        {
+                                            cls: 'd-grid',
+                                            dom: {
+                                                typ: 'button',
+                                                cls: 'btn btn-primary',
+                                                type: 'submit',
+                                                lbl: 'Submit',
                                                 on: {
-                                                    change: (e) => {
-                                                        if (textACI.get.v('val') !== '') {
-                                                            textACI.add('cls', 'is-valid');
-                                                            textACI.rem('cls', 'is-invalid');
-                                                            if (audioACI.get.v('ele').files[0]?.size > FILE_SIZE) {
-                                                                audioACI.add('cls', 'is-invalid');
-                                                                storyErrorACI.set('lbl', FILE_TOO_LARGE_ERROR);
-                                                            } else {
-                                                                audioACI.rem('cls', 'is-invalid');
-                                                            }
-                                                        }
-                                                    },
-                                                }
-                                            },
-                                        ],
-                                    },
-                                    {
-                                        cls: 'row mb-3',
-                                        dom: [
-                                            {
-                                                cls: 'col-md-6',
-                                                dom: [
-                                                    {
-                                                        typ: 'label',
-                                                        cls: 'form-label',
-                                                        for: 'formLat',
-                                                        lbl: 'Latitude',
-                                                    },
-                                                    {
-                                                        typ: 'input',
-                                                        cls: 'form-control',
-                                                        id: 'formLat',
-                                                        readonly: 'readonly',
-                                                        name: 'lat',
-                                                        ini: (m) => {
-                                                            latACI = m;
-                                                        },
-                                                    },
-                                                ],
-                                            },
-                                            {
-                                                cls: 'col-md-6',
-                                                dom: [
-                                                    {
-                                                        typ: 'label',
-                                                        cls: 'form-label',
-                                                        for: 'formLon',
-                                                        lbl: 'Longitude',
-                                                    },
-                                                    {
-                                                        typ: 'input',
-                                                        cls: 'form-control',
-                                                        id: 'formLon',
-                                                        readonly: 'readonly',
-                                                        name: 'lon',
-                                                        ini: (m) => {
-                                                            lonACI = m;
-                                                        },
-                                                    },
-                                                ],
-                                            },
-                                        ],
-                                    },
-                                    {
-                                        cls: 'd-grid',
-                                        dom: {
-                                            typ: 'button',
-                                            cls: 'btn btn-primary',
-                                            type: 'submit',
-                                            lbl: 'Submit',
-                                            on: {
-                                                click: handleSubmit,
+                                                    click: handleSubmit,
+                                                },
                                             },
                                         },
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                },
-                {
-                    cls: 'col-5 m-4',
-                    dom: {
-                        mod: 'LeafMap',
-                        // loc: loc,
-                        // zoom: zoom,
-                        ini: function (m) {
-                            window.mapACI = mapACI = m;
-                        },
-                        modes: {
-                            iniTour: function (e) {
-                                log('Tour');
-                            },
-                            getLoc: function (e) {
-                                log('Loc');
-                            },
-                            dft: function (e) {
-                                var latlng = e.latlng,
-                                    lat = latlng.lat,
-                                    lon = latlng.lng,
-                                    loc = { lat, lon };
-                                log('Default', e);
-                                loc.zoom = 17; // Fix.
-                                setLoc(loc);
-                                pauseTracking = 1;
-                            },
+                                    ],
+                                },
+                            ],
                         },
                     },
-                },
-            ];
+                    {
+                        cls: 'col m-4',
+                        dom: {
+                            mod: 'LeafMap',
+                            // loc: loc,
+                            // zoom: zoom,
+                            ini: function (m) {
+                                window.mapACI = mapACI = m;
+                            },
+                            modes: {
+                                iniTour: function (e) {
+                                    log('Tour');
+                                },
+                                getLoc: function (e) {
+                                    log('Loc');
+                                },
+                                dft: function (e) {
+                                    var latlng = e.latlng,
+                                        lat = latlng.lat,
+                                        lon = latlng.lng,
+                                        loc = { lat, lon };
+                                    log('Default', e);
+                                    loc.zoom = 17; // Fix.
+                                    setLoc(loc);
+                                    pauseTracking = 1;
+                                },
+                            },
+                        },
+                    },
+                ],
+            };
             return dom;
         }
 
