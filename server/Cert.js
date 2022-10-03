@@ -1,4 +1,6 @@
 const { exec } = require('child_process');
+var utl = require('./utl'),
+	ACI = utl.aci;
 
 var dom,
     nam,
@@ -19,7 +21,7 @@ var dom,
         }
     );
 
-return me;
+return module.exports = me;
 
 function setDat(v) {
     if (!v) return;
@@ -30,15 +32,16 @@ function setDat(v) {
 
 function addDomain(v) {
     let { domain = dom, port = prt, name = nam } = v;
-    execCommand($`./launch.pl create-cert ${domain} ${port} ${name}`);
+    execCommand('./launch.pl create-cert ' + domain + ' ' + port + ' ' + name);
 }
 
 function addSubDomain(v) {
     let { domain = dom, port = prt, name = nam } = v;
-    execCommand($`./launch.pl create-cert ${domain} ${port} ${name}`);
+    execCommand('./launch.pl create-cert ' + domain + ' ' + port + ' ' + name);
 }
 
 function execCommand(cmd) {
+    console.log(cmd);
     exec(cmd, (error, stdout, stderr) => {
         console.log(`stdout: ${stdout}`);
         console.log(`stderr: ${stderr}`);
