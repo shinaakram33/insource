@@ -187,6 +187,10 @@ ACE.mod('PageLayout', function (ace) {
                         },
                         {
                             mod: 'ContestPage',
+                            img: 'FEARLESS TRAILS Web contest page.jpeg',
+                            desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora temporibus, nihil obcaecati accusantium similique nesciunt exercitationem doloremque consequatur totam, eos voluptas ut assumenda atque odio magnam iusto! Distinctio amet saepe quibusdam? Autem, tenetur nesciunt recusandae iure dolore aliquam. Omnis impedit sed nemo id porro autem quia nobis, neque, ad quaerat tempora reprehenderit cupiditate eveniet delectus corporis asperiores animi iusto sit? Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, suscipit praesentium dolorum, reprehenderit error excepturi esse sit, tempore impedit ex ullam quaerat cupiditate ipsam fuga illum aliquam ratione aliquid saepe ab rerum maiores placeat perspiciatis possimus! Aliquid mollitia sed enim.',
+                            start: 'October 15-December 15, 2022',
+                            end: 'JANUARY 1, 2023',
                         },
                         {
                             mod: 'ContentUpload',

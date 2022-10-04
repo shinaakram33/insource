@@ -5,7 +5,17 @@ ACE.mod('ContestPage', function (ace) {
     return ContestPage;
 
     function ContestPage(cfg) {
-        let id = cfg.id || 'contest-page-' + now(),
+        let {
+                id = 'contest-page-' + now(),
+                img,
+                desc,
+                start,
+                end,
+            } = cfg,
+            imageACI,
+            dateStartACI,
+            dateEndACI,
+            descACI,
             aci = {
                 set: {
                     dat: setDat,
@@ -30,7 +40,10 @@ ACE.mod('ContestPage', function (ace) {
         }
 
         function setDat(v) {
-            //todo
+            v.img && imageACI.set('src', './img/' + v.img);
+            v.desc && descACI.set('lbl', v.desc);
+            v.start && dateStartACI.set('lbl', v.start);
+            v.end && dateEndACI.set('lbl', 'WINNERS ANNOUNCED ' + v.end.toUpperCase());
         }
 
         function getDat() {
@@ -46,24 +59,36 @@ ACE.mod('ContestPage', function (ace) {
                     dom: [
                         {
                             typ: 'img',
-                            src: './img/FEARLESS TRAILS Web contest page.jpeg',
+                            src: './img/' + img,
                             css: { w: '500px' },
                             cls: 'mx-auto d-block',
+                            ini: (m) => {
+                                imageACI = m;
+                            },
                         },
                         {
                             typ: 'h2',
                             cls: 'fw-bolder text-center text-black mt-3',
-                            lbl: 'October 15-December 15, 2022',
+                            lbl: start,
+                            ini: (m) => {
+                                dateStartACI = m;
+                            },
                         },
                         {
                             typ: 'p',
                             cls: 'text-center text-black p-3 col col-lg-9 mx-auto',
-                            lbl: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora temporibus, nihil obcaecati accusantium similique nesciunt exercitationem doloremque consequatur totam, eos voluptas ut assumenda atque odio magnam iusto! Distinctio amet saepe quibusdam? Autem, tenetur nesciunt recusandae iure dolore aliquam. Omnis impedit sed nemo id porro autem quia nobis, neque, ad quaerat tempora reprehenderit cupiditate eveniet delectus corporis asperiores animi iusto sit? Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, suscipit praesentium dolorum, reprehenderit error excepturi esse sit, tempore impedit ex ullam quaerat cupiditate ipsam fuga illum aliquam ratione aliquid saepe ab rerum maiores placeat perspiciatis possimus! Aliquid mollitia sed enim.',
+                            lbl: desc,
+                            ini: (m) => {
+                                descACI = m;
+                            },
                         },
                         {
                             typ: 'h3',
                             cls: 'fw-bolder text-center text-white mt-3 mb-4 fst-italic',
-                            lbl: 'WINNERS ANNOUNCED JANUARY 1,2023',
+                            lbl: 'WINNERS ANNOUNCED ' + end,
+                            ini: (m) => {
+                                dateEndACI = m;
+                            },
                         },
                     ],
                 },
