@@ -67,6 +67,7 @@ ACE.mod('LeafMap', function(ace,dft){
 				},
 				exe: {
 					pop: exePop,
+					refresh: refreshMap,
 				},
 				
 			}),
@@ -111,7 +112,9 @@ ACE.mod('LeafMap', function(ace,dft){
 			return map;
 		}//getMap()
 		
-		
+		function refreshMap() {
+			map.invalidateSize(true);
+		}
 		
 	// General related map functionality
 		

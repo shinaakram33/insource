@@ -15,6 +15,7 @@ ACE.mod('PageLayout', function (ace) {
             swap,
             storyListACI,
             storyACI,
+            contentUploadACI,
             aci = {
                 set: {
                     dat: setDat,
@@ -52,6 +53,7 @@ ACE.mod('PageLayout', function (ace) {
 
         function enterContest() {
             swap.set('loc', 3);
+            contentUploadACI.exe('refreshMap');
         }
 
         function iniDom() {
@@ -194,6 +196,9 @@ ACE.mod('PageLayout', function (ace) {
                         },
                         {
                             mod: 'ContentUpload',
+                            ini: (m) => {
+                                contentUploadACI = m;
+                            },
                         },
                         {
                             css: { display: 'none' },

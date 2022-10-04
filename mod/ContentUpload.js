@@ -43,6 +43,11 @@ ACE.mod('ContentUpload', function (ace) {
                 get: {
                     dat: getData,
                 },
+                exe: {
+                    refreshMap: () => {
+                        mapACI.exe('refresh');
+                    },
+                },
             },
             ux = {
                 id,
