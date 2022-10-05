@@ -102,7 +102,7 @@ ACE.mod('LandingPage', function (ace) {
                         },
                         {
                             typ: 'button',
-                            cls: 'btn pb-0 ',
+                            cls: 'btn mt-3',
                             style: 'background-color: var(--red);',
                             dom: [
                                 {

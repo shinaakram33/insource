@@ -17,7 +17,6 @@ ACE(function (ace) {
     function iniApp(){
 		DOM({
 			id: 'portal-container',
-			flo: {h:1,w:1,t:0,l:0},
 			css: {
 				margin: 0,
 				padding: 0,
@@ -30,7 +29,7 @@ ACE(function (ace) {
 					ini: function(m){
 						authMainSwap=m;
 					},
-					loc: 1,
+					loc: 2,
 					items: [
 						{
 							mod: 'Auth',
@@ -74,7 +73,7 @@ ACE(function (ace) {
 	function logOut(v){
 		if (!mainSect || !authSect) { return tic(logOut); }
 		ace.makerDat = makerDat = '';  // Fix?
-		authSect.set('page', 'login');
+		authSect.set('page', 'signup');
 		authMainSwap.set('loc',1);
 		mainSect.exe('clear');
 	}//logOut()

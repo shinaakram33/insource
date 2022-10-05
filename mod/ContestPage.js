@@ -67,6 +67,21 @@ ACE.mod('ContestPage', function (ace) {
                             },
                         },
                         {
+                            typ: 'button',
+                            cls: 'btn d-block mt-3 mx-auto',
+                            style: 'background-color: var(--red);',
+                            dom: [
+                                {
+                                    typ: 'h4',
+                                    cls: 'text-white',
+                                    dom: [{ typ: 'b', lbl: 'ENTER TO WIN!' }],
+                                    on: {
+                                        click: cfg.enterContest,
+                                    },
+                                },
+                            ],
+                        },
+                        {
                             typ: 'h2',
                             cls: 'fw-bolder text-center text-black mt-3',
                             lbl: start,

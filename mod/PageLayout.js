@@ -11,7 +11,8 @@ ACE.mod('PageLayout', function (ace) {
     return PageLayout;
 
     function PageLayout(cfg) {
-        let id = cfg.id || 'layout-' + now(),
+        let { id = 'layout-' + now(), onLogin, onLogout } = cfg,
+            isLoggedIn = false,
             swap,
             storyListACI,
             storyACI,
@@ -52,6 +53,14 @@ ACE.mod('PageLayout', function (ace) {
         }
 
         function enterContest() {
+            if (isLoggedIn) {
+                showContentUpload();
+            } else {
+                onLogout();
+            }
+        }
+
+        function showContentUpload() {
             swap.set('loc', 3);
             contentUploadACI.exe('refreshMap');
         }
@@ -139,6 +148,8 @@ ACE.mod('PageLayout', function (ace) {
                                                         { typ: 'br' },
                                                         { typ: 'span', lbl: 'ADVENTURES' },
                                                     ],
+                                                    href: 'https://iftheseroadscouldtalk.com',
+                                                    target: '_blank',
                                                 },
                                                 {
                                                     typ: 'a',
@@ -148,6 +159,11 @@ ACE.mod('PageLayout', function (ace) {
                                                         { typ: 'br' },
                                                         { typ: 'span', lbl: 'DRINK' },
                                                     ],
+                                                    on: {
+                                                        click: () => {
+                                                            showContentUpload();
+                                                        },
+                                                    },
                                                 },
                                                 {
                                                     typ: 'a',
@@ -157,6 +173,11 @@ ACE.mod('PageLayout', function (ace) {
                                                         { typ: 'br' },
                                                         { typ: 'span', lbl: 'TRIP' },
                                                     ],
+                                                    on: {
+                                                        click: () => {
+                                                            rateStories();
+                                                        },
+                                                    },
                                                 },
                                                 {
                                                     typ: 'a',
@@ -193,6 +214,7 @@ ACE.mod('PageLayout', function (ace) {
                             desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora temporibus, nihil obcaecati accusantium similique nesciunt exercitationem doloremque consequatur totam, eos voluptas ut assumenda atque odio magnam iusto! Distinctio amet saepe quibusdam? Autem, tenetur nesciunt recusandae iure dolore aliquam. Omnis impedit sed nemo id porro autem quia nobis, neque, ad quaerat tempora reprehenderit cupiditate eveniet delectus corporis asperiores animi iusto sit? Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, suscipit praesentium dolorum, reprehenderit error excepturi esse sit, tempore impedit ex ullam quaerat cupiditate ipsam fuga illum aliquam ratione aliquid saepe ab rerum maiores placeat perspiciatis possimus! Aliquid mollitia sed enim.',
                             start: 'October 15-December 15, 2022',
                             end: 'JANUARY 1, 2023',
+                            enterContest,
                         },
                         {
                             mod: 'ContentUpload',
