@@ -416,7 +416,6 @@ ACE.mod('ContentUpload', function (ace) {
                     method: 'POST',
                     body: data,
                 });
-                console.log(response);
             }
         }
 
