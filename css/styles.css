@@ -124,3 +124,7 @@ button {
 .op-player button {
     background-color: inherit !important;
 }
+
+.card {
+    background: var(--yellow);
+}
