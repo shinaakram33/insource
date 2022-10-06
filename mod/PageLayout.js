@@ -106,6 +106,7 @@ ACE.mod('PageLayout', function (ace) {
                     ],
                 },
                 {
+                    cls: 'sticky-top',
                     dom: [
                         {
                             cls: 'navbar-customize',
