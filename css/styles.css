@@ -1,6 +1,5 @@
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--green);
 }
 :root {
     --yellow:  #faa850;
@@ -127,4 +126,12 @@ button {
 
 .card {
     background: var(--yellow);
+}
+
+#auth {
+    background-color: white;
+}
+
+#main-sect {
+    background-color: var(--green);
 }
