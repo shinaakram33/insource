@@ -1,10 +1,12 @@
 body {
     font-family: 'Poppins', sans-serif;
+    background-color: var(--green);
 }
 :root {
     --yellow:  #faa850;
     --green:  #858544;
     --red: #802629;
+    --red25: #80262940;
     --navbar-bg:rgba(212, 212, 212, .8);
     --white:#ffffff;
     --tan:#FEE1C3;
@@ -108,4 +110,17 @@ width: 90%;
     color: var(--yellow);
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
+}
+
+.form-control:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 0 0.25rem var(--red25);
+}
+
+button {
+    background-color: var(--red) !important;
+}
+
+.op-player button {
+    background-color: inherit !important;
 }

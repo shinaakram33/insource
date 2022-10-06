@@ -6,6 +6,7 @@ ACE.mod('PageLayout', function (ace) {
     ace.get('mod', 'mod/ContentUpload.js');
     ace.get('mod', 'mod/LandingPage.js');
     ace.get('mod', 'mod/ContestPage.js');
+    ace.get('mod', 'mod/Contact.js');
     ace.get('mod', 'mod/story/StoryList.js');
 
     return PageLayout;
@@ -63,6 +64,10 @@ ACE.mod('PageLayout', function (ace) {
         function showContentUpload() {
             swap.set('loc', 3);
             contentUploadACI.exe('refreshMap');
+        }
+
+        function showContact() {
+            swap.set('loc', 5);
         }
 
         function iniDom() {
@@ -187,6 +192,11 @@ ACE.mod('PageLayout', function (ace) {
                                                         { typ: 'br' },
                                                         { typ: 'span', lbl: 'US' },
                                                     ],
+                                                    on: {
+                                                        click: () => {
+                                                            showContact();
+                                                        },
+                                                    },
                                                 },
                                             ],
                                         },
@@ -272,6 +282,9 @@ ACE.mod('PageLayout', function (ace) {
                                     }, 1000);
                                 },
                             },
+                        },
+                        {
+                            mod: 'Contact',
                         },
                     ],
                 },
