@@ -21,6 +21,7 @@ ACE.mod('Auth', function (ace) {
 			logo = c.logo || 'img/full-logo.png',
 			authMod = c.authMod,
 			on = c.on || {},
+			showHelp = is.fnc(c.showHelp || on.help),
 			onLogin = is.fnc(c.onLogin || on.login),
 			onLogout = is.fnc(c.onLogout || on.logout),
 			aci = {
@@ -487,7 +488,7 @@ ACE.mod('Auth', function (ace) {
 
 
 		function onHelp(){
-			return onLogin();
+			return showHelp();
 			onClk();
 			log('ace.ini: ', ace.ini);
 			ace.ini.maker({});

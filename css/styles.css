@@ -135,3 +135,7 @@ button {
 #main-sect {
     background-color: var(--green);
 }
+
+.contact {
+    min-height: 100vh;
+}

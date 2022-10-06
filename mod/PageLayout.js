@@ -21,6 +21,7 @@ ACE.mod('PageLayout', function (ace) {
             aci = {
                 set: {
                     dat: setDat,
+                    page: setPage,
                 },
                 get: {
                     dat: getDat,
@@ -39,6 +40,12 @@ ACE.mod('PageLayout', function (ace) {
         function ini(m) {
             me = m;
             is.fnc(cfg.ini, m);
+        }
+
+        function setPage(v) {
+            if(v === "help") {
+                showContact();
+            }
         }
 
         function setDat(v) {

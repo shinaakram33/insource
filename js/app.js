@@ -36,6 +36,7 @@ ACE(function (ace) {
 							hit: hitStr,
 							onLogin: logIn,
 							onLogout: logOut,
+							showHelp,
 							ini: function(m){
 								authSect=m;
 							},
@@ -55,6 +56,12 @@ ACE(function (ace) {
 		});
 
 	}//iniApp()
+
+	function showHelp() {
+		if (!mainSect || !authSect) { return tic(showHelp); }
+		authMainSwap.set('loc',2);
+		mainSect.set('page', 'help');
+	}
 
     function logIn(v){
 		if (!mainSect || !authSect) { return tic(logIn); }
