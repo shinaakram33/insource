@@ -1,0 +1,67 @@
+/* .todo-list{
+    width: 500px;
+    height: 500px;
+    background-color: rgb(249, 246, 246);
+    margin-left: 15%;
+    border: 1px solid rgb(157, 154, 154);
+}
+
+.add-task{
+    width: 95%;
+    height: 50px;
+    margin: 10px;
+    margin-top: 30px;
+}
+
+.add-task .input{
+    width: 70%;
+    height: 80%;
+    border: 1px solid rgb(157, 154, 154);
+    float: left;
+    padding: 5px;
+    margin: 0px
+}
+
+.add-task .btn{
+    width: 15%;
+    height: 100%;
+    background-color: blue;
+    color: white;
+    border: none;
+    float: right;
+    margin: 0px;
+    margin-right: 40px;
+}
+
+.task{
+    width: 95%;
+    height: 40px;
+    margin: 10px;
+    background-color: white;
+    border: 1px solid rgb(157, 154, 154);
+}
+
+.task .checkbox{
+    width: 20%;
+    height: 15px;
+    border: 1px solid rgb(157, 154, 154);
+    float: left;
+}
+
+.task .label{
+    width: 40%;
+    height: 70%;
+    float: left;
+    border: none;
+}
+
+.task .btn{
+    width: 5%;
+    height: 15px;
+    border: none;
+}
+ */
+ .btn{
+    border: none;
+    background-color: none;
+}
