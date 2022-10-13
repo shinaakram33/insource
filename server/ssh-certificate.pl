@@ -41,6 +41,9 @@ sub process_command() {
   }
   elsif ($command eq "generate-user-cert") {
     generate_user_cert($name, $host, $ca, $id, $principals, $validity);
+  } 
+  elsif ($command eq "view-cert") {
+    view_cert($name, $host);
   }
   else {
     print "Invalid command $command.\n";
@@ -50,17 +53,17 @@ sub process_command() {
 sub setup_ca() {
   my $name = shift || "user_ca";
   system("ssh-keygen -t rsa -b 4096 -f ~/.ssh/$name");
-  # Mark the key as trusted in the host server
-  # edit the /etc/ssh/sshd_config file and add the following line
-  # TrustedUserCAKeys /etc/ssh/user_ca.pub
-  # then restart ssh
-  # service sshd restart
 }
 
 sub setup_host() {
   my $name = shift || "user_ca";
   my $host = shift;
-  system("scp ~/.ssh/user_ca.pub root\@$host:/etc/ssh/");
+  system("scp ~/.ssh/$name.pub root\@$host:/etc/ssh/");
+  # Mark the key as trusted in the host server
+  # edit the /etc/ssh/sshd_config file and add the following line
+  # TrustedUserCAKeys /etc/ssh/user_ca.pub
+  # then restart ssh
+  # service sshd restart
 }
 
 sub generate_user_cert() {
@@ -70,8 +73,16 @@ sub generate_user_cert() {
   my $id = shift || "user";
   my $principals = shift || "dev";
   my $validity = shift || "+1d";
+
+  system("mkdir ~/.ssh/$user-$host");
   
   system("ssh-keygen -t rsa -b 4096 -f ~/.ssh/$user-$host/$user-$host-key");
 
-  system("ssh-keygen -s $ca -I $id -n $principals -V $validity ~/.ssh/$user-$host/$user-$host-key.pub")
+  system("ssh-keygen -s ~/.ssh/$ca -I $id -n $principals -V $validity ~/.ssh/$user-$host/$user-$host-key.pub")
+}
+
+sub view_cert() {
+  my $user = shift || "user";
+  my $host = shift || "host";
+  system("ssh-keygen -L -f ~/.ssh/$user-$host/$user-$host-key-cert.pub");
 }
