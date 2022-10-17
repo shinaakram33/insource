@@ -52,12 +52,12 @@ function ACI(aci,tgt){
 		
 		function cmdCall(k,v,b){
 			var cbk = is.fnc(b||v||k),
-				flp = is.str(v,1),
-				key = is.str(k,1) || flp,
+				// flp = is.str(v,1),
+				key = is.str(k,1), // || flp,
 				val = v,
 				fnc = is.fnc(key && fncs[key] || is.str(v) && fncs[v] || fncs._),  // Fix?
 				res = function(v,r){
-					return is.fnc(cbk) && cbk(v);
+					return cbk && cbk(v);
 				},
 				ok = mod();
 			return ok ? fnc(val,res) : res(ERR('No hook defined for this aspect, and no default handler set for the cmd',{k:key,v:val}));
