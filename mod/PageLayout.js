@@ -168,9 +168,9 @@ ACE.mod('PageLayout', function (ace) {
                                                     typ: 'a',
                                                     cls: 'navbar-brand navbar-link',
                                                     dom: [
-                                                        { typ: 'span', lbl: 'EAT AND' },
+                                                        { typ: 'span', lbl: 'SUBMIT A' },  // 'EAT AND' },
                                                         { typ: 'br' },
-                                                        { typ: 'span', lbl: 'DRINK' },
+                                                        { typ: 'span', lbl: 'STORY' },  // 'DRINK' },
                                                     ],
                                                     on: {
                                                         click: () => {
