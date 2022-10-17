@@ -11,6 +11,8 @@ deploy-job:      # This job runs in the deploy stage.
       - eval $(ssh-agent -s)
       - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
       - mkdir -p ~/.ssh
+      - echo "$SSH_CERT" > ~/.ssh/id_rsa-cert.pub
+      - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
       - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - ssh dev@45.79.159.34 "cd server/fearlesstrails/ && git checkout dev && git pull origin dev --ff-only && exit"
