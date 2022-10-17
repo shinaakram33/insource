@@ -11,17 +11,17 @@ var top = global,
 		cat: catDir,
 		www: wwwDir,
 	};
+var itm = require(topDir + 'itm');
+// var sshcert = require(topDir + 'SSHCert');
 
-var sshcert = require(topDir + 'SSHCert');
+// sshcert.exe('viewCert', {userName: 'shina', hostName: 'ft'});
 
-sshcert.exe('viewCert', {userName: 'shina', hostName: 'ft'});
-
-// var user = {
-//     name: 'My Name',
-// };
-// itm.ini('itm', {dat: user, typ: 'user'}, (a) => {
-//     console.log("Return function", a);
-// });
+var user = {
+    name: 'Ali',
+};
+itm.ini('itm', {dat: user, typ: 'user'}, (a) => {
+    console.log("Return function", a);
+});
 
 // itm.get('itm', "GPPKgTGZWeRQGNaJZJJOLgwqMDpdcA", (v) => {
 //     console.log("My Obj",v);
