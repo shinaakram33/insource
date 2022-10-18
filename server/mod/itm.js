@@ -142,7 +142,7 @@ function iniItm(v,r){
 		sub = v.sub || '',
 		loc = typ && datDir+typ+(sub&&'/'+sub||'')+'/' || '',  // Fix. Consolidate this functionality in a central function.
 		tpl = typ && datDir+'typ/'+typ+'.json' || '',
-		ext = v.ext || '',
+		ext = v.ext || 'json',
 		id = v.id || iniAID(typ,ext),
 		tgt = loc + id + (ext ? ('.'+ext) : ''),
 		dat = v.dat || '';
@@ -159,6 +159,7 @@ function iniItm(v,r){
 		log('itm.js iniItm('+typ+') writing new itm to file: '+tgt,obj);
 		objToFile(dat,tgt);
 	});
+	is.fnc(r,id);
 	return;  // Fix!
 	getAll(loc,(arr)=>{
 		log('itm.js iniItm() objects: ',arr);
