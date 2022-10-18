@@ -26,7 +26,7 @@ var user = {
 // 	console.log("This is done: ", a);
 // });
 
-dat.get('stories', {id: 'bCNBNfJzrOsUlHCeQRLZqTJnNOQSTM', typ: 'story'}, (a) => {
+dat.get('story', 'bCNBNfJzrOsUlHCeQRLZqTJnNOQSTM', (a) => {
 	console.log("Returned with: ", a);
 });
 
