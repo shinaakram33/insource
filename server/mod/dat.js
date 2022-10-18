@@ -60,7 +60,7 @@ function getStories(v, r) {
 }
 
 function getStory(v, r) {
-	ITM.get('itm', v, r);
+	ITM.get('itm', { id: v, typ: 'story' }, r);
 }
 
 /*function addImg(id,nam,url){
