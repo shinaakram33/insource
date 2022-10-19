@@ -7,8 +7,8 @@ ACE.mod('StoryList', function (ace) {
 
     return StoryList;
 
-    function StoryList(config) {
-        let id = config.id || 'story-list' + now(),
+    function StoryList(cfg) {
+        let id = cfg.id || 'story-list' + now(),
             cls = 'story-list',
             storiesACI = [],
             sortACI,
@@ -19,16 +19,36 @@ ACE.mod('StoryList', function (ace) {
                 add: {
                     dat: addDat,
                 },
+                exe: {
+                    load: loadData,
+                },
             },
+            me,
             ux = {
                 id,
                 cls: cls + ' m-3',
                 dom: iniDom(),
                 aci,
-                ini: config.ini,
+                ini,
             };
 
         return ux;
+
+        function ini(m) {
+            me = m;
+            loadData();
+            is.fnc(cfg.ini, m);
+        }
+
+        function loadData(v) {
+            var obj = {
+				cmd: 'get',
+				typ: 'stories',
+			};
+			ace.get.dat(obj,function(dat){
+				log('Received response data: ',dat);				
+			});
+        }
 
         function setDat(v) {
             v.forEach((o) =>
