@@ -47,7 +47,9 @@ ACE.mod('ContentUpload', function (ace) {
                     refreshMap: () => {
                         mapACI.exe('refresh');
                     },
+                    reset: resetData,
                 },
+                
             },
             ux = {
                 id,
@@ -72,6 +74,17 @@ ACE.mod('ContentUpload', function (ace) {
                 lat: latACI.get.v('val'),
                 lon: lonACI.get.v('val'),
             };
+        }
+
+        function resetData(){
+                titleACI.set('val','');
+                descACI.set('val','');
+                authorACI.set('val','');
+                fileACI.set('val','');
+                audioACI.set('val','');
+                textACI.set('val','');
+                audioACI.rem('cls', 'is-valid');
+                textACI.rem('cls', 'is-valid');
         }
 
         function iniDom() {
@@ -416,6 +429,11 @@ ACE.mod('ContentUpload', function (ace) {
                     method: 'POST',
                     body: data,
                 });
+                if(response.status === 200){
+                    form.classList.remove('was-validated')
+                    resetData()
+                }
+                
             }
         }
 
