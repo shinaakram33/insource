@@ -12,9 +12,11 @@ ACE.mod('PageLayout', function (ace) {
     return PageLayout;
 
     function PageLayout(cfg) {
+        const STORIES_URL = "https://iftheseroadscouldtalk.com/dat/dat_1853_5.js?t=1853_5&m=dat&d=eyJjbWQiOiJnZXQiLCJ0eXAiOiJzdG9yaWVzIiwiaGl0IjoxODUzLjN9";
         let { id = 'layout-' + now(), onLogin, onLogout } = cfg,
             isLoggedIn = false,
             swap,
+            storiesData = getStoriesData(),
             storyListACI,
             storyACI,
             contentUploadACI,
@@ -236,6 +238,7 @@ ACE.mod('PageLayout', function (ace) {
                         },
                         {
                             mod: 'ContentUpload',
+                            storiesList: updateStorieslist,
                             ini: (m) => {
                                 contentUploadACI = m;
                             },
@@ -250,44 +253,47 @@ ACE.mod('PageLayout', function (ace) {
                                 ini: (m) => {
                                     storyACI = m;
                                     setTimeout(() => {
-                                        storyACI.set('dat', [
-                                            {
-                                                title: 'Story title 1',
-                                                author: 'Author',
-                                                recordedAt: '27-9-2022',
-                                                lat: 31.4646435,
-                                                lon: 74.2889282,
-                                            },
-                                            {
-                                                title: 'Story title 2',
-                                                author: 'Author',
-                                                recordedAt: '27-9-2022',
-                                                lat: 31.4646435,
-                                                lon: 74.2889282,
-                                            },
-                                            {
-                                                title: 'Story title 3',
-                                                author: 'Author',
-                                                recordedAt: '27-9-2022',
-                                                lat: 31.4646435,
-                                                lon: 74.2889282,
-                                            },
-                                            {
-                                                title: 'Story title 4',
-                                                author: 'Author',
-                                                recordedAt: '27-9-2022',
-                                                lat: 31.4646435,
-                                                lon: 74.2889282,
-                                            },
-                                            {
-                                                title: 'Story title 5',
-                                                author: 'Author',
-                                                recordedAt: '27-9-2022',
-                                                lat: 31.4646435,
-                                                lon: 74.2889282,
-                                            },
-                                        ]);
+                                        storyACI.set('dat', storiesData
+                                        // [
+                                        //     {
+                                        //         title: 'Story title 1',
+                                        //         author: 'Author',
+                                        //         recordedAt: '27-9-2022',
+                                        //         lat: 31.4646435,
+                                        //         lon: 74.2889282,
+                                        //     },
+                                        //     {
+                                        //         title: 'Story title 2',
+                                        //         author: 'Author',
+                                        //         recordedAt: '27-9-2022',
+                                        //         lat: 31.4646435,
+                                        //         lon: 74.2889282,
+                                        //     },
+                                        //     {
+                                        //         title: 'Story title 3',
+                                        //         author: 'Author',
+                                        //         recordedAt: '27-9-2022',
+                                        //         lat: 31.4646435,
+                                        //         lon: 74.2889282,
+                                        //     },
+                                        //     {
+                                        //         title: 'Story title 4',
+                                        //         author: 'Author',
+                                        //         recordedAt: '27-9-2022',
+                                        //         lat: 31.4646435,
+                                        //         lon: 74.2889282,
+                                        //     },
+                                        //     {
+                                        //         title: 'Story title 5',
+                                        //         author: 'Author',
+                                        //         recordedAt: '27-9-2022',
+                                        //         lat: 31.4646435,
+                                        //         lon: 74.2889282,
+                                        //     },
+                                        // ]
+                                        );
                                     }, 1000);
+
                                 },
                             },
                         },
@@ -298,6 +304,18 @@ ACE.mod('PageLayout', function (ace) {
                 },
             ];
             return dom;
+        }
+
+
+        async function getStoriesData(){
+           storiesData = await fetch(STORIES_URL).then(response => response.json())
+           console.log('Hello',storiesData)
+           return storiesData
+        }
+
+        function updateStorieslist(loc, data){
+            storyACI.set('dat', storiesData)
+            swap.set('loc', loc)
         }
     }
 });

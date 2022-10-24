@@ -15,6 +15,7 @@ ACE.mod('StoryItem', function (ace) {
                 title,
                 author,
                 recordedAt,
+                audio,
                 lat,
                 lon,
             } = cfg,
@@ -68,6 +69,7 @@ ACE.mod('StoryItem', function (ace) {
                 recordedAt,
                 lat,
                 lon,
+                audio
             };
         }
 
@@ -195,7 +197,8 @@ ACE.mod('StoryItem', function (ace) {
                                                     },
                                                     {
                                                         mod: 'Audio',
-                                                        media: 'https://ccrma.stanford.edu/~jos/mp3/Latin.mp3',
+                                                        media: "https://iftheseroadscouldtalk.com/aud/"+audio,
+                                                        //'https://ccrma.stanford.edu/~jos/mp3/Latin.mp3',
                                                     },
                                                 ],
                                             },

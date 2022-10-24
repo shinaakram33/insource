@@ -17,6 +17,7 @@ ACE.mod('ContentUpload', function (ace) {
     const FILE_TOO_LARGE_ERROR = "File size should not be greater than 10 MB.";
     const FILE_SIZE = 10000000;
     const BACKEND_URL = "https://iftheseroadscouldtalk.com/";
+    const STORIES_URL = "https://iftheseroadscouldtalk.com/dat/dat_1853_5.js?t=1853_5&m=dat&d=eyJjbWQiOiJnZXQiLCJ0eXAiOiJzdG9yaWVzIiwiaGl0IjoxODUzLjN9";
 
     ace.get('mod', '/mod/LeafMap.js');
     ace.get('mod', '/mod/Gps.js');
@@ -26,6 +27,7 @@ ACE.mod('ContentUpload', function (ace) {
     function ContentUpload(cfg) {
         let id = cfg.id || 'content-upload' + now(),
             submit = cfg.submit,
+            updateStorieslist = cfg.storiesList,
             cls = 'content-upload',
             titleACI,
             descACI,
@@ -39,6 +41,7 @@ ACE.mod('ContentUpload', function (ace) {
             formACI,
             mapACI,
             gpsACI,
+            submitBtnACI,
             aci = {
                 get: {
                     dat: getData,
@@ -85,6 +88,8 @@ ACE.mod('ContentUpload', function (ace) {
                 textACI.set('val','');
                 audioACI.rem('cls', 'is-valid');
                 textACI.rem('cls', 'is-valid');
+               // form.classList.remove('was-validated')
+                formACI.rem('cls', 'was-validated');
         }
 
         function iniDom() {
@@ -357,6 +362,9 @@ ACE.mod('ContentUpload', function (ace) {
                                                 on: {
                                                     click: handleSubmit,
                                                 },
+                                                ini: (m)=> {
+                                                    submitBtnACI = m
+                                                }
                                             },
                                         },
                                     ],
@@ -420,6 +428,11 @@ ACE.mod('ContentUpload', function (ace) {
                 }
             }
             if (isValid) {
+                submitBtnACI.set('lbl', '');
+                submitBtnACI.add({
+                    typ: 'span',
+                    cls: 'spinner-border text-warning'
+                })
                 const data = new FormData(form);
                 data.append('audio', audioACI.get.v('ele').files[0]);
                 data.append('text', textACI.get.v('val'));
@@ -430,10 +443,10 @@ ACE.mod('ContentUpload', function (ace) {
                     body: data,
                 });
                 if(response.status === 200){
-                    form.classList.remove('was-validated')
                     resetData()
+                    let data = await fetch(STORIES_URL).then(response => response.json())
+                   updateStorieslist(4, data)
                 }
-                
             }
         }
 
