@@ -1,0 +1,21 @@
+{
+    "id": "",
+    "title": "",
+    "description": "",
+    "acceptance-criteria": "",
+    "status": "to-do",
+    "lead": "",
+    "team-members": [
+        "userId"
+    ],
+    "estimated-time": 0,
+    "priority": "",
+    "rating": "",
+    "created-at": "",
+    "created-by": "",
+    "meta": {
+        "code-versioning-tool": "",
+        "Documentation": "",
+        "Sheets": ""
+    }
+}

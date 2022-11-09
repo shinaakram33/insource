@@ -1,0 +1,28 @@
+{
+    "id": "",
+    "title": "",
+    "description": "",
+    "acceptance-criteria": "",
+    "start-date": "",
+    "due-date": "",
+    "estimated-hours": 0,
+    "reporters": ["userIds"],
+    "status": "To Do",
+    "Assignees": ["userIds"],
+    "type": "feature-id",
+    "project-id": "",
+    "comments": [
+        {
+            "comment": "",
+            "comment-by": "",
+            "comment-date": ""
+        }
+    ],
+    "history": [
+        {
+            "userId": "",
+            "action": "",
+            "action-date": ""
+        }
+    ]
+}
