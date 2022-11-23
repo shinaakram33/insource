@@ -1,5 +1,6 @@
 ACE(function (ace) {
   var DOM = ace.get.v("dom");
+  ace.get('mod', 'mod/Dat.js')
   ace.get("mod", "mod/SwapContent.js");
   ace.get("mod", "mod/Project/createProject.js");
   ace.get("mod", "mod/Project/ProjectsList.js");
@@ -11,6 +12,8 @@ ACE(function (ace) {
   ace.get('mod', 'mod/Feature/viewAllFeatures.js')
   ace.get('mod', 'mod/Feature/viewFeatureDetails.js')
   ace.get('mod', 'mod/Project/viewProjectDetails.js')
+
+   window.aceDatSrc = 'https://5dc.us:3032'
   var swap,
     projectDetails,
     projectsListACI,
@@ -61,7 +64,7 @@ ACE(function (ace) {
         ini: (m) => {
           swap = m;
         },
-        loc: 4,
+        loc: 2,
         items: [
           {
             mod: 'createFeature',

@@ -36,6 +36,7 @@ ACE.mod("viewAllFeatures", function (ace) {
           cls: 'text-center mt-5 text-primary fw-bold'
         },
       ]
+      console.log(featureItems[0])
       featureItems.forEach((itm)=> {
         rowDom.push({ 
           typ: 'a',

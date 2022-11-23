@@ -2,11 +2,11 @@
     "id": "",
     "title": "",
     "description": "",
-    "acceptance-criteria": "",
-    "start-date": "",
-    "due-date": "",
+    "acceptance_criteria": "",
+    "start_date": "",
+    "due_date": "",
     "status": "To Do",
-    "creation-day": "",
+    "creation_day": "",
     "priority": "",
     "rating": ""
 }

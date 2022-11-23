@@ -2,27 +2,27 @@
     "id": "",
     "title": "",
     "description": "",
-    "acceptance-criteria": "",
-    "start-date": "",
-    "due-date": "",
-    "estimated-hours": 0,
-    "reporters": ["userIds"],
+    "acceptance_criteria": "",
+    "start_date": "",
+    "due_date": "",
+    "estimated_hours": 0,
+    "reporters": [],
     "status": "To Do",
-    "Assignees": ["userIds"],
-    "type": "feature-id",
-    "project-id": "",
+    "Assignees": [],
+    "type": "",
+    "project_id": "",
     "comments": [
         {
             "comment": "",
-            "comment-by": "",
-            "comment-date": ""
+            "comment_by": "",
+            "comment_date": ""
         }
     ],
     "history": [
         {
             "userId": "",
             "action": "",
-            "action-date": ""
+            "action_date": ""
         }
     ]
 }

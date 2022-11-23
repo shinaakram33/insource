@@ -338,9 +338,11 @@ ACE.mod("createFeature", function (ace) {
         return  {
           title: titleACI.get.v('val'),
           description: descACI.get.v('val'),
+          acceptance_criteria: acceptanceACI.get.v('val'),
           start_date: startDateACI.get.v('val'),
           due_date: dueDateACI.get.v('val'),
-          creation_date: creationDateACI.get.v('val'),
+          created_at: creationDateACI.get.v('val'),
+          created_by: "",
           estimated_time: estimatedACI.get.v('val'),
           status: statusACI.get.v('val'),
           priority: priorityACI.get.v('val'),

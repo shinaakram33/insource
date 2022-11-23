@@ -45,8 +45,9 @@ ACE.mod('Dat', function(ace){
 	});
 	
 	
-	ace.dat = localStore;
-	ace.get.dat = getData;
+	ace.dat = localStore; // this will save data to localstorage
+	//console.log('dat',ace)
+	ace.get.dat = getData; //// this will get data from server
 	ace.get.var = getVar;
 	ace.set.var = setVar;
 	ace.get.itm = getItm;
@@ -282,9 +283,6 @@ ACE.mod('Dat', function(ace){
 	}//setPass()
 	
 	
-	
-
-
 	// Loads an item from local memory based on its id, or obtains it from the server.
 	function getItm(v,r){
 		if (!v || !is.str(v)) {
@@ -354,8 +352,6 @@ ACE.mod('Dat', function(ace){
 	}//delItm()
 
 
-
-
 	// Use directly as low-level method to send data to the server.
 	function getData(v,r){
 		var callId = ''+(++maxCall),
@@ -366,7 +362,7 @@ ACE.mod('Dat', function(ace){
 		cal.hit = ini;  // Fix. getHit();
 		// log('getData('+callId+') obtaining data from server...', cal);
 		COM.get('dat', cal, function(data){
-			if (!is(data) || data==cal || is.fnc(data)) { return; }
+			if (!is(data) || data==cal || is.fnc(data)) { return }
 			var lag = now()-ini,
 				bad = data===!1,
 				arr = !bad && is.arr(data),
@@ -459,7 +455,7 @@ ACE.mod('Dat', function(ace){
 		}
 		if (cmd=="set" || cmd=="ini" || cmd=="add") {
 			if (is.obj(val)) { val = JSON.stringify(val); }
-			return localStorage.setItem(key, val);
+			localStorage.setItem(key, val);
 		}
 		if (cmd=="del" || cmd=="rem") {	return localStorage.removeItem(key); }
 		if (cmd=="exe" && key=="clr") { return localStorage.clear(); }  // Erases the entire db. Fix. Safety mechanisms?
@@ -492,7 +488,6 @@ ACE.mod('Dat', function(ace){
 		}//getAll()
 
 	}//localStore()
-
 
 	function getVar(v,r){
 		var key = v && is.str(v),

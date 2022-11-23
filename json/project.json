@@ -2,19 +2,19 @@
     "id": "",
     "title": "",
     "description": "",
-    "acceptance-criteria": "",
+    "acceptance_criteria": "",
     "status": "to-do",
     "lead": "",
-    "team-members": [
-        "userId"
+    "team_members": [
     ],
-    "estimated-time": 0,
+    "estimated_time": 0,
     "priority": "",
     "rating": "",
-    "created-at": "",
-    "created-by": "",
+    "created_at": "",
+    "created_by": "",
+    "tasks": [],
     "meta": {
-        "code-versioning-tool": "",
+        "code_versioning_tool": "",
         "Documentation": "",
         "Sheets": ""
     }

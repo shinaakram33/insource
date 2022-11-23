@@ -65,7 +65,7 @@ ACE.mod("viewAllTasks", function (ace) {
       function getDat() {}
 
       function submitProject(v){
-        alert('Hello Project')
+        //alert('Hello Project')
       }
   
     }

@@ -7,6 +7,7 @@ ACE.mod("viewAllProjects", function (ace) {
         projectItems = cfg.projectItems || [],
         projectItemACI,
         Location = cfg.getLocation;
+        allProjects = localStorage.getItem('project')
         aci = {
           set: {
             dat: setDat,
@@ -32,24 +33,7 @@ ACE.mod("viewAllProjects", function (ace) {
           {
             mod: 'viewAllFeatures',
             featureName: 'Projects',
-            data: [
-                {
-                    label: 'Fearless Trails',
-                    desc: 'This project is about a contest where users upload stories',
-                    creation_date: '01-11-2022'
-                },
-                {
-                    label: 'Shared Vision',
-                    desc: 'This project is about This project is about This project is about ',
-                    creation_date: '01-11-2022'
-                },
-                {
-                    label: 'Task Tracker',
-                    desc: 'This project is about project management tool. All tasks are managed here',
-                    creation_date: '01-11-2022'
-                },
-                
-            ],
+            data: allProjects,
             viewItemDetails,
             handleSubmit: submitProject,
             ini: (m)=>(featureACI = m) 
