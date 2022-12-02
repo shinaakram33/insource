@@ -5,13 +5,15 @@ ACE.mod("viewFeatureDetails", function (ace) {
     let id = cfg.id || "list",
       projectItems = cfg.projectItems || [],
       titleACI, descACI, acceptanceACI, startDateACI, dueDateACI, estimationACI, creationDateACI,
-      Location = cfg.getLocation;
+      Location = cfg.getLocation,
+      data;
       aci = {
         set: {
           dat: setDat,
         },
         get: {
           dat: getDat,
+          itm: getItm
         },
       },
       ux = {
@@ -147,16 +149,31 @@ ACE.mod("viewFeatureDetails", function (ace) {
                   dom: [
                     {
                       typ:'button',
-                      cls: 'col-2 btn btn-light text-decoration-underline',
-                      lbl: 'Go Back'
+                      cls: 'col-3 btn btn-light text-decoration-underline',
+                      lbl: 'Go Back',
+                      on: {
+                        click: ()=> {
+                          goBack()
+                        }
+                      }
                     },
                     {
                       typ:'button',
-                      cls: 'col-2 btn btn-primary align-self-end',
+                      cls: 'col-3 btn btn-primary align-self-end',
                       lbl: 'Update',
                       on: {
                         click: ()=> {
                           handleSubmit()
+                        }
+                      }
+                    },
+                    {
+                      typ:'button',
+                      cls: 'col-3 mx-3 btn btn-primary align-self-end',
+                      lbl: 'Delete',
+                      on: {
+                        click: ()=> {
+                          handleDelete()
                         }
                       }
                     }
@@ -214,19 +231,36 @@ ACE.mod("viewFeatureDetails", function (ace) {
     }
 
     function setDat(itm) {
-      titleACI.set('val', itm.label)
-      descACI.set('val', itm.desc)
+      data=itm;
+      titleACI.set('val', itm.title)
+      descACI.set('val', itm.description)
       acceptanceACI.set('val', itm.acceptance_criteria)
       startDateACI.set('val', itm.start_date)
       dueDateACI.set('val', itm.due_date)
-      creationDateACI.set('val', itm.creation_date)
-      estimationACI.set('val', itm.estimation)
+      creationDateACI.set('val', itm.created_at)
+      estimationACI.set('val', itm.estimated_time)
     }
 
-    function getDat() {}
+    function getDat() {
+      data.title = titleACI.get.v('val')
+
+      return data
+    }
+
+    function getItm(){
+      return data._id
+    }
 
     function handleSubmit(){
-      
+      cfg.handleSubmit()   
+    }
+
+    function goBack(){
+      cfg.goBack()
+    }
+
+    function handleDelete(){
+      cfg.handleDelete()
     }
 
   }

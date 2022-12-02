@@ -7,16 +7,17 @@ ACE.mod("createTask", function (ace) {
     function createTask(cfg) {
       let id = cfg.id || "list",
         projectItems = cfg.projectItems || [],
-        featureACI,
-       // projectsList = getProjects(),
+        featureACI,projectACI,
+        getData, projectData,
         Location = cfg.getLocation;
         aci = {
           set: {
             dat: setDat,
           },
-          get: {
-            dat: getDat,
+          ini: {
+            dat: iniDat
           },
+          
         },
         ux = {
           id,
@@ -26,6 +27,7 @@ ACE.mod("createTask", function (ace) {
             cfg.ini(m);
           },
         };
+
   
       return ux;
   
@@ -42,8 +44,12 @@ ACE.mod("createTask", function (ace) {
                     label: 'Select Project',
                     multiselect: false,
                     ACI: 'projectACI',
-                    values: ['Fearless Trails', 'Insource Pro', 'Task tracker'],
-                    ini: (m)=> (projectACI = m)
+                    values: cfg.getProjects(loading),
+                    ini: (m)=> {projectACI = m},
+                    // on: {
+                    //   load: getProjects()
+                    // },
+                    
                 },
                 {
                     type: 'dropdown',
@@ -58,7 +64,7 @@ ACE.mod("createTask", function (ace) {
                     label: 'Assignees',
                     multiselect: false,
                     ACI: 'assigneesACI',
-                    values: ['Muhammad Ali Tahir', 'Paul', 'Shina akram'],
+                    values: ['a', 'b', 'c'],
                     ini: (m)=> (assigneesACI = m)
                 },
                 {
@@ -66,7 +72,7 @@ ACE.mod("createTask", function (ace) {
                     label: 'Reporters',
                     ACI: 'reportersACI',
                     multiselect: true,
-                    values: ['Muhammad Ali Tahir', 'Paul', 'Shina akram'],
+                    values: ['A', 'B', 'C'],
                     ini: (m)=> (reportersACI = m)
                 },
             ],
@@ -80,59 +86,119 @@ ACE.mod("createTask", function (ace) {
         return dom;
       }
   
-      function setDat() {}
-  
-      function getDat() {}
-
-      function getProjects(){
-        let obj={
-              aci :'get',
-              cmd : 'all',
-              typ: 'project',
-            }
-           ace.get.dat(obj, function(dat){
-              console.log('All Data: ',dat);				
-            })
-           //s console.log("obj2",obj2)
-          //  let  obj = {
-          //     cmd : 'get',
-          //     key : 'projects'
-          //   }
-          //  console.log(ace.dat(obj))
+      function setDat(dat) {
+        projectACI.set('dat', dat)
       }
-      
-      function submitTask(){
+
+      function iniDat(){
         let taskData = featureACI.get.v('dat')
         taskData.project_id = featureACI.get.v('dat').additionalFields[0]
         taskData.type = featureACI.get.v('dat').additionalFields[1]
         taskData.assignees = featureACI.get.v('dat').additionalFields[2]
         taskData.reporters = featureACI.get.v('dat').additionalFields[3]
-        let obj = {
-          cmd: 'ini',
-          val: taskData
+        delete taskData.additionalFields
+        let obj={
+          cmd :'ini',
+          aspect : 'itm',
+          typ: 'task',
+          v: taskData
         }
-        loadDatModule(DATA)
-        let taskKey = DATA(obj)
-        let projects = getProjects()
-        projects.forEach(element => {
-          if(element === taskData.project_id)
-          {
-            ace.get.itm(element, function(data){
-              data.tasks.push(taskKey)
-              localStorage.setItem(element, data)
-            })
-          }
-        });
+       ace.get.dat(obj, function(dat){
+          console.log('All Data: ',dat);
+          cfg.taskModuleSwapping(6,'', 'LIST')
+          // obj = {
+          //   cmd :'get',
+          //   aspect : 'itm',
+          //   typ: 'project',
+          //   v: taskData.project_id
+          // }
+          // ace.get.dat(obj, async function(dat1){
+          //   console.log('mongo project', dat1)
+          //   dat1.tasks.push(dat)
+          //   dat1.id = dat1._id
+          //  delete dat1._id
+          //   console.log('dat1', dat1)
+          //   obj = {
+          //     cmd: 'set',
+          //     aspect: 'itm',
+          //     typ: 'project',
+          //     v: dat1
+          //   }
+            
+          //   await ace.get.dat(obj, function(dat2){
+          //     console.log('project updated')
+          //     console.log(dat2)
+          //     cfg.taskModuleSwapping(6,'', 'LIST')
+          //   })
+          // })				
+        })
+        // let obj={
+        //   cmd :'rem',
+        //   aspect : 'itm',
+        //   typ: 'project',
+        // }
+        // ace.get.dat(obj, function(dat){
+        //   console.log(dat)
+        // })
+      }
+
+      
+      function submitTask(){
+      //   let taskData = featureACI.get.v('dat')
+      //   taskData.project_id = featureACI.get.v('dat').additionalFields[0]
+      //   taskData.type = featureACI.get.v('dat').additionalFields[1]
+      //   taskData.assignees = featureACI.get.v('dat').additionalFields[2]
+      //   taskData.reporters = featureACI.get.v('dat').additionalFields[3]
+      //   delete taskData.additionalFields
       //   let obj={
-      //     aci :'ini',
-      //     cmd : 'itm',
+      //     cmd :'ini',
+      //     aspect : 'itm',
       //     typ: 'task',
       //     v: taskData
       //   }
       //  ace.get.dat(obj, function(dat){
-      //     console.log('All Data: ',dat);				
+      //     console.log('All Data: ',dat);
+      //     obj = {
+      //       cmd :'get',
+      //       aspect : 'itm',
+      //       typ: 'project',
+      //       v: taskData.project_id
+      //     }
+      //     ace.get.dat(obj, function(dat1){
+      //       console.log('mongo project', dat1)
+      //       dat1.tasks.push(dat)
+      //       console.log('dat1', dat1)
+      //       obj = {
+      //         cmd: 'set',
+      //         aspect: 'itm',
+      //         typ: 'project',
+      //         v: dat1
+      //       }
+      //       ace.get.dat(obj, function(dat2){
+      //         console.log('project updated')
+      //         console.log(dat2)
+      //       })
+      //     })				
       //   })
 
+      iniDat()
+
+        // let obj = {
+        //   cmd: 'ini',
+        //   val: taskData
+        // }
+        // loadDatModule(DATA)
+        // let taskKey = DATA(obj)
+        // let projects = getProjects()
+        // projects.forEach(element => {
+        //   if(element === taskData.project_id)
+        //   {
+        //     ace.get.itm(element, function(data){
+        //       data.tasks.push(taskKey)
+        //       localStorage.setItem(element, data)
+        //     })
+        //   }
+        // });
 
 
         // get all fileds value of task
@@ -142,10 +208,15 @@ ACE.mod("createTask", function (ace) {
         // push this newly created task id into task array of project and update the project into local storage/file system 
        
       }
+
       function loadDatModule(dat){
         if(!ace.is(dat)){
             DATA = ace.dat
         }
+      }
+
+      function loading(dat){
+        setDat(dat)
       }
     }
     

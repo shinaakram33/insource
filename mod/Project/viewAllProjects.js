@@ -7,7 +7,7 @@ ACE.mod("viewAllProjects", function (ace) {
         projectItems = cfg.projectItems || [],
         projectItemACI,
         Location = cfg.getLocation;
-        allProjects = localStorage.getItem('project')
+        //allProjects = localStorage.getItem('project')
         aci = {
           set: {
             dat: setDat,
@@ -33,7 +33,7 @@ ACE.mod("viewAllProjects", function (ace) {
           {
             mod: 'viewAllFeatures',
             featureName: 'Projects',
-            data: allProjects,
+            data: cfg.getProjects(callback),
             viewItemDetails,
             handleSubmit: submitProject,
             ini: (m)=>(featureACI = m) 
@@ -45,16 +45,21 @@ ACE.mod("viewAllProjects", function (ace) {
         return dom;
       }
   
-      function setDat() {}
+      function setDat(dat) {
+        featureACI.set('dat', dat)
+      }
   
       function getDat() {}
 
       function submitProject(v){
-        alert('Hello Project')
       }
 
-      function viewItemDetails(itm, loc){
-        cfg.viewItemDetails(itm, loc)
+      function viewItemDetails(itm){
+        cfg.viewItemDetails(itm, 4)
+      }
+
+      function callback(dat){
+        setDat(dat)
       }
   
     }

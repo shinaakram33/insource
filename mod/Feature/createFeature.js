@@ -15,7 +15,8 @@ ACE.mod("createFeature", function (ace) {
             dat: setDat,
           },
           get: {
-            dat: getDat
+            dat: getDat,
+            data: getData
           },
         },
         ux = {
@@ -52,7 +53,12 @@ ACE.mod("createFeature", function (ace) {
                 typ: 'input',
                 type:'text',
                 cls: 'form-control',
+                required: 'required',
                 ini: (m)=> {titleACI = m}
+              },
+              {
+                cls: 'invalid-feedback',
+                lbl: 'Please provide a valid title.',
               }
             ]
           },
@@ -167,6 +173,7 @@ ACE.mod("createFeature", function (ace) {
         if(additionalFields === true){
           data.forEach((element)=> {
             if(element.type == 'dropdown'){
+              
               dom.push({
                 cls: 'mb-3',
               dom: [
@@ -180,7 +187,8 @@ ACE.mod("createFeature", function (ace) {
                   mod: 'dropDownField',
                   data: element.values,
                   ini: (m)=> {
-                    element.ACI = m
+                    element.ini(m)
+                    element.ref = m
                   }
                 }
               ]
@@ -332,7 +340,7 @@ ACE.mod("createFeature", function (ace) {
             additionalFieldsData = [];
           }
           data.forEach((ele)=> {
-            additionalFieldsData.push(ele.ACI.get.v('dat'))
+            additionalFieldsData.push(ele.ref.get.v('dat'))
           })
         }
         return  {
@@ -349,6 +357,14 @@ ACE.mod("createFeature", function (ace) {
           rating: ratingACI.get.v('val'),
           additionalFields: additionalFieldsData
         }
+      }
+
+      function getData(){
+        return "hello"
+      }
+
+      function handleSubmit(){
+        
       }
   
     }

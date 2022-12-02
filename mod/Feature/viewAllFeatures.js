@@ -22,6 +22,7 @@ ACE.mod("viewAllFeatures", function (ace) {
         dom: iniDom(),
         ini: (m) => {
           cfg.ini(m);
+          featureItemsACI = m
         },
       };
 
@@ -36,7 +37,6 @@ ACE.mod("viewAllFeatures", function (ace) {
           cls: 'text-center mt-5 text-primary fw-bold'
         },
       ]
-      console.log(featureItems[0])
       featureItems.forEach((itm)=> {
         rowDom.push({ 
           typ: 'a',
@@ -48,7 +48,7 @@ ACE.mod("viewAllFeatures", function (ace) {
               dom: [
                 {
                   typ: 'h5',
-                  lbl: itm.label
+                  lbl: itm.title
                 },
                 {
                   typ: 'small',
@@ -65,7 +65,7 @@ ACE.mod("viewAllFeatures", function (ace) {
             {
               typ: 'p',
               cls: 'mb-1',
-              lbl: itm.desc,
+              lbl: itm.description,
             },
             {
               typ: 'small',
@@ -74,7 +74,7 @@ ACE.mod("viewAllFeatures", function (ace) {
           ],
           on: {
             click: ()=>{
-              cfg.viewItemDetails(itm, 6)
+              cfg.viewItemDetails(itm, 5)
             }
           }
       })
@@ -87,7 +87,51 @@ ACE.mod("viewAllFeatures", function (ace) {
       return dom;
     }
 
-    function setDat() {}
+    function setDat(dat) {
+      dat.forEach((itm)=> {
+        featureItemsACI.add({ 
+          typ: 'a',
+          href: '#',
+          cls: 'list-group-item list-group-item-action',
+          dom: [
+            {
+              cls: 'd-flex w-100 justify-content-between',
+              dom: [
+                {
+                  typ: 'h5',
+                  lbl: itm.title
+                },
+                {
+                  typ: 'small',
+                  lbl: 'x',
+                  cls: 'text-danger fw-bold',
+                  on: {
+                    click: ()=> {
+                      alert('Do you want to delete?')
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              typ: 'p',
+              cls: 'mb-1',
+              lbl: itm.description,
+            },
+            {
+              typ: 'small',
+              lbl: 'created at: '+itm.created_at
+            }
+          ],
+          on: {
+            click: ()=>{
+              cfg.viewItemDetails(itm)
+            }
+          }
+      })
+    })
+
+    }
 
     function getDat() {}
 

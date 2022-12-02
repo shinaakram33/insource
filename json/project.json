@@ -1,5 +1,4 @@
 {
-    "id": "",
     "title": "",
     "description": "",
     "acceptance_criteria": "",
@@ -7,12 +6,11 @@
     "lead": "",
     "team_members": [
     ],
-    "estimated_time": 0,
+    "estimated_time": "0",
     "priority": "",
     "rating": "",
     "created_at": "",
     "created_by": "",
-    "tasks": [],
     "meta": {
         "code_versioning_tool": "",
         "Documentation": "",

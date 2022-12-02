@@ -4,7 +4,7 @@ ACE.mod('dropDownField', function(ace){
     function dropDownField(cfg){
         let label = cfg.label,
         data = cfg.data || [],
-        selectACI,
+        selectACI,dropdownACI
         aci = {
             set: {
                 dat: setDat
@@ -24,26 +24,45 @@ ACE.mod('dropDownField', function(ace){
                     selectACI = m
                 }
             },
-            ini: (m)=> (cfg.ini(m))
+            ini: (m)=> {
+                cfg.ini(m)
+            }
         };
 
         return ux;
 
         function iniDom(){
+            //  console.log('dropdown', data)
             let dom = []
             data.forEach(element => {
+                if(element.title == undefined){
+                    element = {
+                    title: element,
+                    id :element
+                    }
+                }
                 dom.push({
                     typ: 'option',
-                    lbl: element,
-                    value: element,
-                    ini: m=> (optionACI = m)
+                    lbl: element.title,
+                    value: element._id,
+                    ini: m=> (element.ACI = m)
                 })
             });
 
             return dom;
         }
 
-        function setDat(){
+        function setDat(dat){
+            data = dat;
+            //  console.log('dropdown data', data)
+            data.forEach(element => {
+                selectACI.add({
+                    typ: 'option',
+                    lbl: element.title,
+                    value: element._id,
+                    ini: m=> (element.ACI = m)
+                })
+            });
         }
 
         function getDat(){
