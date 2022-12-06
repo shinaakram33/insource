@@ -1,0 +1,54 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+:root {
+    --yellow:  #faa850;
+    --green:  #858544;
+    --red: #802629;
+    --red25: #80262940;
+    --navbar-bg:rgba(212, 212, 212, .8);
+    --white:#ffffff;
+    --tan:#FEE1C3;
+}
+
+.icons-bar {
+    background-color: var(--yellow);
+    padding: 3px;
+}
+
+.search-icon {
+    background-color: var(--white);
+    opacity: .5;
+    border-radius: 4px;
+    height: 26px;
+    margin-left: 10px;
+}
+.icons-container {
+    display: flex;
+    align-items: center;
+}
+.navbar-brand {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+}
+.navbar-brand.navbar-link {
+    text-align: center;
+    color: var(--green);
+}
+.navbar-brand.contest {
+    text-align: center;
+    color: var(--red);
+}
+.navbar-customize {
+    background-color: var(--navbar-bg);
+    width: 100%;
+}
+.saperator-bar {
+    background-color: var(--red);
+    height: 20px;
+}
+
+
+

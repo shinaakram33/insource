@@ -1,5 +1,6 @@
 ACE.mod("viewProjectDetails", function (ace) {
   ace.get('mod', 'mod/Feature/viewFeatureDetails.js')
+  ace.get('mod', 'mod/Itm.js')
     return viewProjectDetails;
   
     function viewProjectDetails(cfg) {
@@ -55,7 +56,7 @@ ACE.mod("viewProjectDetails", function (ace) {
           {
             cls: 'row g-3 mt-3',
             mod: 'viewFeatureDetails',
-            handleSubmit,
+            handleUpdate,
             goBack,
             handleDelete,
             ini: (m)=> (viewFeatureDetailsACI  = m)
@@ -66,7 +67,11 @@ ACE.mod("viewProjectDetails", function (ace) {
       }
   
       function setDat(itm) {
-        viewFeatureDetailsACI.set('dat', itm)
+        if(viewFeatureDetailsACI){
+          viewFeatureDetailsACI.set('dat', itm)
+        }else{
+          setTimeout(()=> { setDat(itm)}, 1000)
+        }
       }
 
       function setProject(itm){
@@ -82,33 +87,51 @@ ACE.mod("viewProjectDetails", function (ace) {
           let clss = successTextACI.get.v('ele')
           clss.classList.add('d-block')
         })
+
+        // ace.set.item(obj, function(dat){
+        //   successTextACI.rem('cls','d-none')
+        //   let clss = successTextACI.get.v('ele')
+        //   clss.classList.add('d-block')
+        // })
+
+        // ace.get.dat(obj, function(dat){
+        //   successTextACI.rem('cls','d-none')
+        //   let clss = successTextACI.get.v('ele')
+        //   clss.classList.add('d-block')
+        // })
       }
 
-      function remDat(itm){
+      function remDat(itmId){
         let obj = {
           aspect: 'itm',
           cmd: 'del',
           typ: 'project',
-          v: itm
+          v: itmId
         }
 
+        // ace.del.item(obj, function(dat){
+        //   setTimeout(()=> { cfg.projectModuleSwapping(3, '', 'LIST') }, 1000)
+        //   // successTextACI.rem('cls','d-block')
+        //   // deleteTextACI.rem('cls','d-none')
+        //   // let clss = deleteTextACI.get.v('ele')
+        //   // clss.classList.add('d-block')
+        // })
+
         ace.get.dat(obj, function(dat){
-          successTextACI.rem('cls','d-block')
-          deleteTextACI.rem('cls','d-none')
-          let clss = deleteTextACI.get.v('ele')
-          clss.classList.add('d-block')
+          console.log('Deleted item', dat)
+          cfg.projectModuleSwapping(3, '', 'LIST')
         })
       }
   
       function getDat() {}
 
-      function handleSubmit(){
+      function handleUpdate(){
         let itm = viewFeatureDetailsACI.get.v('dat');
         setProject(itm)
       }
 
       function goBack(){
-        cfg.swapItem(3)
+        setTimeout(()=> { cfg.projectModuleSwapping(3, '', 'LIST') }, 1000)
       }
 
       function handleDelete(){

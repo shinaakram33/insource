@@ -3,18 +3,20 @@ ACE.mod("viewAllProjects", function (ace) {
     return viewAllProjects;
   
     function viewAllProjects(cfg) {
-      let id = cfg.id || "list",
-        projectItems = cfg.projectItems || [],
-        projectItemACI,
-        Location = cfg.getLocation;
-        //allProjects = localStorage.getItem('project')
+      let id = cfg.id || "projects-list",
+        viewAllProjectsACI, featureACI;
         aci = {
           set: {
             dat: setDat,
+            
           },
           get: {
             dat: getDat,
+            projects: getProjects
           },
+          rem: {
+            dat: remDat
+          }
         },
         ux = {
           id,
@@ -22,6 +24,7 @@ ACE.mod("viewAllProjects", function (ace) {
           dom: iniDom(),
           ini: (m) => {
             cfg.ini(m);
+            viewAllProjectsACI = m
           },
         };
   
@@ -35,7 +38,8 @@ ACE.mod("viewAllProjects", function (ace) {
             featureName: 'Projects',
             data: cfg.getProjects(callback),
             viewItemDetails,
-            handleSubmit: submitProject,
+            handleSwapping,
+            handleDeletion,
             ini: (m)=>(featureACI = m) 
           },
          
@@ -44,22 +48,61 @@ ACE.mod("viewAllProjects", function (ace) {
   
         return dom;
       }
+
+      async function addDom(dat){
+        viewAllProjectsACI.add({
+          mod: 'viewAllFeatures',
+            featureName: 'Projects',
+            data: dat,
+            viewItemDetails,
+            handleSwapping,
+            handleDeletion,
+            ini: (m)=>{featureACI = m}
+        })        
+    }
   
       function setDat(dat) {
-        featureACI.set('dat', dat)
+        setTimeout(()=> { featureACI.set('dat', dat)} , 200)
+      }
+
+      function getProjects(){
+        // ace.get.item({
+        //   aspect: 'all',
+        //   cmd: 'get',
+        //   typ: 'project',
+        // }, function(dat){
+        //   addDom(dat)
+        // })
+
+        ace.get.dat({
+          aspect: 'all',
+          cmd: 'get',
+          typ: 'project',
+        }, function(dat){
+          addDom(dat)
+        })
       }
   
       function getDat() {}
 
-      function submitProject(v){
+      function remDat(){
+        featureACI.del()
       }
 
       function viewItemDetails(itm){
-        cfg.viewItemDetails(itm, 4)
+        cfg.projectModuleSwapping(4, itm, 'DETAILS')
       }
 
       function callback(dat){
         setDat(dat)
+      }
+
+      function handleSwapping(){
+        cfg.projectModuleSwapping(2, '', 'CREATE')
+      }
+
+      function handleDeletion(itm){
+        setTimeout(()=> { cfg.projectModuleSwapping(3, itm, 'DELETE') }, 1000 )
       }
   
     }

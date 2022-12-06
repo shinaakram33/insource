@@ -163,7 +163,7 @@ ACE.mod("viewFeatureDetails", function (ace) {
                       lbl: 'Update',
                       on: {
                         click: ()=> {
-                          handleSubmit()
+                          handleUpdate()
                         }
                       }
                     },
@@ -243,16 +243,22 @@ ACE.mod("viewFeatureDetails", function (ace) {
 
     function getDat() {
       data.title = titleACI.get.v('val')
-
+      data.acceptance_criteria = acceptanceACI.get.v('val')
+      data.description = descACI.get.v('val')
+      data.start_date = startDateACI.get.v('val')
+      data.due_date = dueDateACI.get.v('val')
+      data.created_at = creationDateACI.get.v('val')
+      data.estimated_time = estimationACI.get.v('val')
       return data
     }
 
     function getItm(){
       return data._id
+      //return data.aid;
     }
 
-    function handleSubmit(){
-      cfg.handleSubmit()   
+    function handleUpdate(){
+      cfg.handleUpdate()   
     }
 
     function goBack(){

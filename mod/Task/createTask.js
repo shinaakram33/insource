@@ -1,6 +1,6 @@
 ACE.mod("createTask", function (ace) {
     ace.get("mod", "mod/Feature/createFeature.js");
-    ace.get('mod', 'mod/Dat.js')
+    ace.get('mod', 'mod/Itm.js')
     let DATA = ace.ini.itm;
     return createTask;
   
@@ -77,6 +77,7 @@ ACE.mod("createTask", function (ace) {
                 },
             ],
            handleSubmit: submitTask,
+           handleSwapping,
            ini: (m)=>(featureACI = m) 
           },
          
@@ -87,7 +88,7 @@ ACE.mod("createTask", function (ace) {
       }
   
       function setDat(dat) {
-        projectACI.set('dat', dat)
+        setTimeout(()=> {projectACI.set('dat', dat)}, 5000)
       }
 
       function iniDat(){
@@ -103,7 +104,10 @@ ACE.mod("createTask", function (ace) {
           typ: 'task',
           v: taskData
         }
-       ace.get.dat(obj, function(dat){
+        ace.get.dat(obj, function(dat){
+          console.log(dat)
+        })
+       ace.ini.item(obj, function(dat){
           console.log('All Data: ',dat);
           cfg.taskModuleSwapping(6,'', 'LIST')
           // obj = {
@@ -142,6 +146,9 @@ ACE.mod("createTask", function (ace) {
         // })
       }
 
+      function handleSwapping(){
+        cfg.taskModuleSwapping(6, '', 'LIST')
+      }
       
       function submitTask(){
       //   let taskData = featureACI.get.v('dat')

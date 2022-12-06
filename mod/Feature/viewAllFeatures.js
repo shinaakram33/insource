@@ -31,10 +31,24 @@ ACE.mod("viewAllFeatures", function (ace) {
     function iniDom() {
       let rowDom = [];
       let dom = [
-        {
-          typ:'h3',
-          lbl: featureName+' List',
-          cls: 'text-center mt-5 text-primary fw-bold'
+        {  
+          dom: [
+            {
+              typ:'button',
+              lbl: 'Create '+featureName,
+              cls: 'text-right mt-2 text-secondary bg-light text-decoration-underline border-0 fw-bold float-end mb-3',
+              on: {
+                click: ()=> {
+                  cfg.handleSwapping()
+                }
+              }
+            },
+            {
+              typ:'h4',
+              lbl: 'All '+featureName,
+              cls: ' mt-5 text-primary fw-bold mb-5',
+            }
+          ]
         },
       ]
       featureItems.forEach((itm)=> {
@@ -48,7 +62,12 @@ ACE.mod("viewAllFeatures", function (ace) {
               dom: [
                 {
                   typ: 'h5',
-                  lbl: itm.title
+                  lbl: itm.title,
+                  on: {
+                    click: ()=>{
+                      cfg.viewItemDetails(itm)
+                    }
+                  }
                 },
                 {
                   typ: 'small',
@@ -56,7 +75,11 @@ ACE.mod("viewAllFeatures", function (ace) {
                   cls: 'text-danger fw-bold',
                   on: {
                     click: ()=> {
-                      alert('Do you want to delete?')
+                      // alert('Do you want to delete?')
+                      let action = prompt('Do you want to delete this item?', 'yes')
+                      if(action == 'yes'){
+                        cfg.handleDeletion(itm.aid)
+                      }
                     }
                   }
                 }
@@ -71,12 +94,7 @@ ACE.mod("viewAllFeatures", function (ace) {
               typ: 'small',
               lbl: 'created at: '+itm.creation_date
             }
-          ],
-          on: {
-            click: ()=>{
-              cfg.viewItemDetails(itm, 5)
-            }
-          }
+          ]
       })
     })
     dom.push(
@@ -99,7 +117,12 @@ ACE.mod("viewAllFeatures", function (ace) {
               dom: [
                 {
                   typ: 'h5',
-                  lbl: itm.title
+                  lbl: itm.title,
+                  on: {
+                    click: ()=>{
+                      cfg.viewItemDetails(itm)
+                    }
+                  }
                 },
                 {
                   typ: 'small',
@@ -107,7 +130,11 @@ ACE.mod("viewAllFeatures", function (ace) {
                   cls: 'text-danger fw-bold',
                   on: {
                     click: ()=> {
-                      alert('Do you want to delete?')
+                      // alert('Do you want to delete?')
+                      let action = prompt('Do you want to delete this item?', 'yes')
+                      if(action == 'yes'){
+                        cfg.handleDeletion(itm.aid)
+                      }
                     }
                   }
                 }
@@ -122,12 +149,7 @@ ACE.mod("viewAllFeatures", function (ace) {
               typ: 'small',
               lbl: 'created at: '+itm.created_at
             }
-          ],
-          on: {
-            click: ()=>{
-              cfg.viewItemDetails(itm)
-            }
-          }
+          ]
       })
     })
 

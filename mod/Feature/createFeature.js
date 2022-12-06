@@ -36,10 +36,24 @@ ACE.mod("createFeature", function (ace) {
       function iniDom() {
   
         let dom = [
-          {
-            typ:'h3',
-            lbl: 'Create New '+featureName,
-            cls: 'text-center mt-5 text-primary fw-bold'
+          {  
+            dom: [
+              {
+                typ:'button',
+                lbl: 'View All '+featureName,
+                cls: 'text-right mt-2 text-secondary bg-light text-decoration-underline border-0 fw-bold float-end mb-3',
+                on: {
+                  click: ()=> {
+                    cfg.handleSwapping()
+                  }
+                }
+              },
+              {
+                typ:'h4',
+                lbl: 'Create New '+featureName,
+                cls: ' mt-5 text-primary fw-bold mb-5',
+              }
+            ]
           },
           { 
             cls: 'mb-3',

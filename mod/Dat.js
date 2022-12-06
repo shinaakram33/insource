@@ -349,6 +349,11 @@ ACE.mod('Dat', function(ace){
 
 	function delItm(v,r){
 		log('Called delItm');
+		r(localStore({
+			cmd: 'del',
+			key: v,
+		}));
+
 	}//delItm()
 
 

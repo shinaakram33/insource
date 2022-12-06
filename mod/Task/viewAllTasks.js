@@ -17,7 +17,6 @@ ACE.mod("viewAllTasks", function (ace) {
           },
           get: {
             dat: getDat,
-            allDat: getAllDat,
             tasks: getAllTasks
           },
           rem: {
@@ -129,14 +128,53 @@ ACE.mod("viewAllTasks", function (ace) {
           clss.classList.add('d-block')
           let selectedProject = selectedProjectACI.get.v('dat')
           console.log('selected', selectedProject)
+          // ace.get.item({
+          //   aspect: 'all',
+          //   cmd: 'get',
+          //   typ: 'task',
+          //   v: selectedProject
+          // }, async function(dat){
+          //   featureACI.del()
+          //    dat.forEach(element => {
+          //     if(element.project_id === selectedProject){
+          //       tasksListData.push(element)
+          //     }
+          //    });
+          //    console.log('task list data', dat)
+          //   //  if(dat.tasks.length > 0){
+          //   //   for(let ele of dat.tasks){
+          //   //     await ace.get.dat({
+          //   //              aspect: 'itm',
+          //   //              cmd: 'get',
+          //   //              typ: 'task',
+          //   //              v: ele
+          //   //            }, function(dat){
+          //   //              console.log('task dat', dat)
+          //   //                tasksListData.push(dat)
+          //   //            })
+          //   //    }
+          //     //  if(featureACI !== undefined){
+          //       //  featureACI.del()
+          //     //  }
+          //      setTimeout(()=> {
+          //        addDom(tasksListData)
+          //      },800)
+          //    //}
+              
+          // })
+
+          // SERVER SIDE
+          
           ace.get.dat({
             aspect: 'alltask',
             cmd: 'get',
             typ: 'task',
             v: selectedProject
           }, async function(dat){
-             console.log('task list data', dat)
+            console.log('project tasks', dat)
+            featureACI.del()
              tasksListData = dat
+             console.log('task list data', dat)
             //  if(dat.tasks.length > 0){
             //   for(let ele of dat.tasks){
             //     await ace.get.dat({
@@ -149,26 +187,36 @@ ACE.mod("viewAllTasks", function (ace) {
             //                tasksListData.push(dat)
             //            })
             //    }
-               if(featureACI !== undefined){
-                 featureACI.del()
-               }
+              //  if(featureACI !== undefined){
+                //  featureACI.del()
+              //  }
                setTimeout(()=> {
                  addDom(tasksListData)
                },800)
              //}
               
           })
+
         }else{
           selectProjectACI.rem('cls','d-block')
           clss.classList.add('d-none')
+          // ace.get.item({
+          //   aspect: 'all',
+          //   cmd: 'get',
+          //   typ: 'task',
+          // }, function(dat){
+          //     featureACI.del()
+          //   console.log('all', dat)
+          //   addDom(dat)
+          // })
+
+          // SERVER SIDE
           ace.get.dat({
             aspect: 'all',
             cmd: 'get',
             typ: 'task',
           }, function(dat){
-            if(featureACI !== undefined){
               featureACI.del()
-            }
             console.log('all', dat)
             addDom(dat)
           })
@@ -176,6 +224,15 @@ ACE.mod("viewAllTasks", function (ace) {
       }
 
       function getAllTasks(){
+        // ace.get.item({
+        //   aspect: 'all',
+        //   cmd: 'get',
+        //   typ: 'task',
+        // }, function(dat){
+        //   addDom(dat)
+        // })
+
+        //SERVER SIDE
         ace.get.dat({
           aspect: 'all',
           cmd: 'get',
@@ -190,17 +247,30 @@ ACE.mod("viewAllTasks", function (ace) {
       }
 
       async function addDom(dat){
-          viewAllTasksACI.add({
+          setTimeout(()=> {viewAllTasksACI.add({
             cls: 'featurecls',
             mod: 'viewAllFeatures',
               featureName: 'Tasks',
               data: dat,
               viewItemDetails,
+              handleSwapping,
+              handleDeletion,
               ini: (m)=>{featureACI = m}
-          })        
+          })    
+        },1000)    
       }
 
       function iniDat(taskObj) {
+        // ace.ini.item({
+        //   aspect: 'itm',
+        //   cmd: 'ini',
+        //   typ: 'task',
+        //   v: taskObj
+        // }, function(dat){
+        //   return dat
+        // }) 
+
+        //SERVER SIDE
         ace.get.dat({
           aspect: 'itm',
           cmd: 'ini',
@@ -212,7 +282,17 @@ ACE.mod("viewAllTasks", function (ace) {
       }
 
       function setDat(taskObj) {
-          ace.get.dat({
+        // ace.set.item({
+        //   aspect: 'itm',
+        //   cmd: 'set',
+        //   typ: 'task',
+        //   v: taskObj
+        // }, function(dat){
+        //   return dat
+        // })
+
+        //SERVER SIDE
+        ace.get.dat({
             aspect: 'itm',
             cmd: 'set',
             typ: 'task',
@@ -224,10 +304,20 @@ ACE.mod("viewAllTasks", function (ace) {
       }
 
       function setProject(dat){
-        selectedProjectACI.set('dat', dat)
+        setTimeout(()=> { selectedProjectACI.set('dat', dat)}, 500)
       }
   
       function getDat(taskId) {
+        // ace.get.item({
+        //   aspect: 'itm',
+        //   cmd: 'get',
+        //   typ: 'task',
+        //   v: taskId
+        // }, function(dat){
+        //   return dat
+        // })
+
+        //SERVER SIDE
         ace.get.dat({
           aspect: 'itm',
           cmd: 'get',
@@ -238,22 +328,22 @@ ACE.mod("viewAllTasks", function (ace) {
         })
       }
 
-      function getAllDat() {
-        ace.get.dat({
-          aspect: 'all',
-          cmd: 'get',
-          typ: 'task',
-        }, function(dat){
-          return dat
-        })
-      }
 
       function viewItemDetails(itm){
+        console.log('itm', itm)
         cfg.taskModuleSwapping(7, itm, 'DETAILS')
       }
 
       function callback(dat){
         setProject(dat)
+      }
+
+      function handleSwapping(){
+        cfg.taskModuleSwapping(5, '', 'CREATE')
+      }
+
+      function handleDeletion(itm){
+        cfg.taskModuleSwapping(6, itm, 'DELETE')
       }
   
     }

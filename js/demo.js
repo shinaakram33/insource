@@ -1,9 +1,9 @@
 ACE(function (ace) {
   var DOM = ace.get.v("dom");
-  ace.get('mod', 'mod/Dat.js')
+   ace.get('mod', 'mod/Dat.js')
+   ace.get('mod', 'mod/Itm.js')
   ace.get("mod", "mod/SwapContent.js");
   ace.get("mod", "mod/Project/createProject.js");
-  ace.get("mod", "mod/Project/ProjectsList.js");
   ace.get("mod", "mod/Project/viewAllProjects.js");
   ace.get("mod", "mod/Task/createTask.js");
   ace.get("mod", "mod/Task/viewAllTasks.js");
@@ -63,94 +63,167 @@ ACE(function (ace) {
   DOM({
     id: "main-div",
     dom: [
-      {
-        mod: "SwapContent",
-        ini: (m) => {
-          swap = m;
+        {
+          cls: 'sticky-top mb-5',
+          dom: [
+              {
+                  cls: 'navbar-customize',
+                  dom: [
+                      {
+                          typ: 'nav',
+                          cls: 'navbar navbar-light ',
+                          dom: [
+                              {
+                                  cls: 'container-fluid',
+                                  dom: [
+                                      {
+                                          typ: 'a',
+                                          cls: 'navbar-brand website-logo',
+                                          dom: [
+                                              { typ: 'span', lbl: 'TASK TRACKER' },
+                                              { typ: 'br' },
+                                          ],
+                                          on: {
+                                              click: () => {
+                                                  swap.set('loc', 1);
+                                              },
+                                          },
+                                      },
+                                      {
+                                          typ: 'a',
+                                          cls: 'navbar-brand navbar-link',
+                                          dom: [
+                                              { typ: 'span', lbl: 'Features' },
+                                              { typ: 'br' },
+                                          ],
+                                          on: {
+                                              click: () => {
+                                                  swap.set('loc', 1);
+                                              },
+                                          },
+                                      },
+                                      {
+                                          typ: 'a',
+                                          cls: 'navbar-brand navbar-link',
+                                          dom: [
+                                              { typ: 'span', lbl: 'Projects' },
+                                              { typ: 'br' },
+                                          ],
+                                          on: {
+                                            click: () => {
+                                                swap.set('loc', 2);
+                                            },
+                                        },
+                                      },
+                                      {
+                                          typ: 'a',
+                                          cls: 'navbar-brand navbar-link',
+                                          dom: [
+                                              { typ: 'span', lbl: 'Tasks' },  // 'EAT AND' },
+                                              { typ: 'br' },
+                                          ],
+                                          on: {
+                                            click: () => {
+                                                swap.set('loc', 5);
+                                            },
+                                        },
+                                      },
+                                      {
+                                          typ: 'a',
+                                          cls: 'navbar-brand navbar-link',
+                                          dom: [
+                                              { typ: 'span', lbl: 'Contact Us' },
+                                              { typ: 'br' },
+                                          ],
+                                          on: {
+                                              click: () => {
+                                                  alert('COMING SOON')
+                                              },
+                                          },
+                                      },
+                                  ],
+                              },
+                          ],
+                      },
+                  ],
+              },
+          ],
         },
-        loc:6,
-        items: [
-          {
-            mod: 'createFeature',
-            ini: (m)=> (createFeatureACI = m)
+        {
+          mod: "SwapContent",
+          ini: (m) => {
+            swap = m;
           },
-          {
-            mod: 'createProject',
-            ini: (m)=> {
-              createProjectACI = m;
-            }
-          },
-          {
-            mod: "viewAllProjects",
-            projectItems,
-            viewItemDetails,
-            getLocation,
-            getProjects,
-            ini: (m) => (projectsListACI = m),
-          },
-          {
-            mod: "viewProjectDetails",
-            Location: getLocation,
-            projectDetails,
-            swapItem,
-            ini: (m) => (ProjectDetailsACI = m),
-          },
-          {
-            mod: 'createTask',
-            getProjects,
-            taskModuleSwapping,
-            ini: (m)=> {createTaskACI = m}
-          },
-          
-          {
-            mod: "viewAllTasks",
-            getProjects,
-            taskModuleSwapping,
-            ini: (m) => (tasksListACI = m),
-          },
-          {
-            mod: "viewTaskDetails",
-            taskModuleSwapping,
-            Location: getLocation,
-            swapItem,
-            projectDetails,
-            ini: (m) => (taskDetailsACI = m),
-          },
-        ],
-      },
+          loc: 5,
+          items: [
+            {
+              mod: 'createFeature',
+              ini: (m)=> (createFeatureACI = m)
+            },
+            {
+              mod: 'createProject',
+              projectModuleSwapping,
+              loadModule,
+              ini: (m)=> {
+                createProjectACI = m;
+              }
+            },
+            {
+              mod: "viewAllProjects",
+              getProjects,
+              projectModuleSwapping,
+              ini: (m) => (projectsListACI = m),
+            },
+            {
+              mod: "viewProjectDetails",
+              projectModuleSwapping,
+              swapItem,
+              loadModule,
+              ini: (m) => (ProjectDetailsACI = m),
+            },
+            {
+              mod: 'createTask',
+              getProjects,
+              taskModuleSwapping,
+              loadModule,
+              ini: (m)=> {createTaskACI = m}
+            },
+            
+            {
+              mod: "viewAllTasks",
+              getProjects,
+              taskModuleSwapping,
+              loadModule,
+              ini: (m) => (tasksListACI = m),
+            },
+            {
+              mod: "viewTaskDetails",
+              taskModuleSwapping,
+              swapItem,
+              loadModule,
+              ini: (m) => (taskDetailsACI = m),
+            },
+          ],
+        },
     ],
   });
 
   function getProjects(callback){
-    // if(createProjectACI === undefined){
-    //   setTimeout(()=> {getProjects()}, 2000)
-    // }else{
-    //   console.log('createProject', createProjectACI)
-    // console.log(createProjectACI.get.v('projects'))
-    // let d =  setTimeout(()=> {createProjectACI.get.v('projects')} , 2000)
-    // console.log('d', d)
-    // return d;
-    // }
     let obj={
           cmd :'get',
           aspect : 'all',
           typ: 'project',
         }
+        //SERVER SIDE
        ace.get.dat(obj, function(dat){
-                callback(dat)
+          console.log('server dat', dat)
+          callback(dat)
         })
-  }
 
-  function getLocation(data, loc) {
-    projectDetails = data;
-    swap.set("loc", loc);
-    console.log(data);
-    ProjectDetailsACI.set("dat", projectDetails);
-  }
-
-  function viewItemDetails(itm, loc){
-    swap.set('loc', loc)
-    ProjectDetailsACI.set("dat", itm);
+        // ace.get.item(obj, function(dat){
+        //   //console.log('get all dat from localstorage', dat)
+        //   callback(dat)
+        // })
   }
 
   function swapItem(loc){
@@ -160,22 +233,28 @@ ACE(function (ace) {
   function taskModuleSwapping(loc, data, module){
     if(module === 'CREATE'){
       swapItem(loc)
-      
 
     }else if(module === 'LIST'){
       swapItem(loc)
-      tasksListACI.rem('dat')
-      tasksListACI.get.v('tasks')
+      setTimeout(()=> {
+        tasksListACI.rem('dat')
+        tasksListACI.get.v('projects')
+      }, 1000)
 
     }else if(module === 'DETAILS'){
       swapItem(loc)
-      ProjectDetailsACI.set("dat", data);
+      // setTimeout(()=> { 
+        taskDetailsACI.set("dat", data)
+      // }, 500);
 
     }else if(module === 'UPDATE'){
       swapItem(loc)
 
     }else if(module === 'DELETE'){
       swapItem(loc)
+      // setTimeout(()=> { 
+        taskDetailsACI.rem('dat', data) 
+      // }, 500)
 
     }
   }
@@ -183,19 +262,39 @@ ACE(function (ace) {
   function projectModuleSwapping(loc, data, module){
     if(module === 'CREATE'){
       swapItem(loc)
-
-    }else if(module === 'LIST'){
+    }
+    else if(module === 'LIST'){
+      if(projectsListACI){
+        swapItem(loc)
+        projectsListACI.rem('dat')
+        projectsListACI.get.v('projects')
+      }else{
+        setTimeout(()=> {
+          console.log('loc', loc)
+          projectModuleSwapping(loc, '', 'LIST')
+        }, 1000)
+      }
+    }
+    else if(module === 'DETAILS'){
+      if(ProjectDetailsACI){
+        swapItem(loc)
+        ProjectDetailsACI.set("dat", data)
+      }else{
+        setTimeout(()=> {
+          projectModuleSwapping(loc, '', 'DETAILS')
+        })
+      }     
+    }
+    else if(module === 'UPDATE'){
       swapItem(loc)
-
-    }else if(module === 'DETAILS'){
-      swapItem(loc)
-
-    }else if(module === 'UPDATE'){
-      swapItem(loc)
-
-    }else if(module === 'DELETE'){
-      swapItem(loc)
-
+    }
+    else if(module === 'DELETE'){
+      if(ProjectDetailsACI){
+        swapItem(loc)
+        ProjectDetailsACI.rem('dat', data) 
+      }else{
+        projectModuleSwapping(loc, '', 'DELETE')
+      }
     }
   }
 
@@ -215,6 +314,14 @@ ACE(function (ace) {
     }else if(module === 'DELETE'){
       swapItem(loc)
 
+    }
+  }
+
+  function loadModule(module){
+    if(module()){
+      return true;
+    }else{
+      setTimeout(()=> { loadModule(module)}, 1000 )
     }
   }
 

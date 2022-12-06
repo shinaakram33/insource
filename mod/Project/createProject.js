@@ -1,6 +1,6 @@
 ACE.mod("createProject", function (ace) {
     ace.get("mod", "mod/Feature/createFeature.js");
-    ace.get('mod', 'mod/Dat.js')
+    ace.get('mod', 'mod/Itm.js')
     let DATA = ace.ini.itm; // this will save data to localstorage. This needs updated to ace.get.dat to send to data server
                         // instead
     return createProject;    
@@ -11,11 +11,10 @@ ACE.mod("createProject", function (ace) {
         projectItems = cfg.projectItems || [],
         Location = cfg.getLocation,
 
-        featuresACI,
+        featuresACI,itmACI,
         aci = {
           set: {
             dat: setDat,
-            project: setProject
           },
           get: {
             dat: getDat,
@@ -38,6 +37,7 @@ ACE.mod("createProject", function (ace) {
       function iniDom() {
   
         let dom = [
+
           {
             mod: 'createFeature',
             additionalFields: true,
@@ -61,6 +61,7 @@ ACE.mod("createProject", function (ace) {
                 }
             ],
             handleSubmit: submitProject,
+            handleSwapping,
             ini: (m)=>{featuresACI = m}
           },          
         ];
@@ -73,28 +74,6 @@ ACE.mod("createProject", function (ace) {
       }
   
       function getDat() {}
-
-      // function getAllProjects(){
-      //   let proj = []
-      //   let obj={
-      //         cmd :'get',
-      //         aspect : 'all',
-      //         typ: 'project',
-      //       }
-      //      ace.get.dat(obj, function(dat){
-      //       for(let ele of dat){
-      //          proj.push(ele);
-      //       }
-      //       //return proj
-      //       })
-      //       return proj
-      //       // setTimeout(()=> {
-      //       //   return proj 
-      //       // }, 5000)  
-      // }
-
-      function setProject(){
-      }
 
       function iniDat(){
         let tempData = featuresACI.get.v('dat')
@@ -119,6 +98,10 @@ ACE.mod("createProject", function (ace) {
         })
       }
 
+      function handleSwapping(){
+        setTimeout(()=> { cfg.projectModuleSwapping(3, '', 'LIST')}, 1000)
+      }
+
       async function submitProject(){
         let tempData = featuresACI.get.v('dat')
         tempData.lead = featuresACI.get.v('dat').additionalFields[0]
@@ -131,82 +114,28 @@ ACE.mod("createProject", function (ace) {
 
         }
         delete tempData.additionalFields
-        
-        // console.log(tempData)
-        // loadDatModule(DATA)
-        // let  obj = {
-        //   cmd : 'ini',
-        //   val : tempData
-        // }
-        // DATA(obj)
+         
+        if (!ace.get.itms) {
+          return submitProject();
+        }
+        itmACI = ace.get.itms();
+        //console.log(ace.set.itms())
 
-       
-      //  let projectsArray = localStorage.getItem('Projects')
-      //  if(projectsArray === null){
-      //   projectsArray = []
-      //  }else{
-      //   projectsArray = JSON.parse(projectsArray)
-      //  }
-      //  projectsArray.push(obj.aid)
-      //  localStorage.setItem('Projects', JSON.stringify(projectsArray))
-      // {
-      //   title: 'abc2',
-      //   description: 'dummy',
-      //   acceptance_criteria: 'dummy',
-      //   status: 'to-do',
-      //   lead: 'ali',
-      //   team_members: ['shina'],
-      //   tasks: [],
-      //   estimated_time: "0",
-      //   priority: '',
-      //   rating: '3',
-      //   created_at: '12-10-2022',
-      //   created_by: '12-10-2022',
-      //   meta: {
-      //     code_versioning_tool: "",
-      //     Documentation: "",
-      //     Sheets: ""
-      //   }
-      //   }
-
-      let obj={
-        cmd :'ini',
-        aspect : 'itm',
-        typ: 'project',
-        v: tempData
-      }
-     ace.get.dat(obj, function(dat){
-        console.log('All Data: ',dat);				
-      })
-         obj={
-            aci :'get',
-          cmd : 'all',
+        let obj={
+          cmd :'ini',
+          aspect : 'itm',
           typ: 'project',
-          }
-          ace.get.dat(obj, function(dat){
-            console.log('All Data: ',dat);				
-          })
-
-        
-        // var obj = {
-        //   cmd: 'get',
-        //   typ: 'stories',
-        // };
-        // ace.get.dat(obj,function(dat){
-        //   log('Received response data: ',dat);				
-        // });
-        // // ace.exe.call({
-        // //   tgt: 'dat',
-        // //   cmd: 'ini',
-        // //   typ: 'maker',
-        // //   dat: featuresACI.get.v('dat'),
-        // // },function(dat){
-        // //   log('iniMaker() completed: ',dat);
-        // //   is.fnc(r,dat);
-        // // });
-        // ace.ini('maker', featuresACI.get.v('dat'))
-        //console.log('Hello',ace.get.v('dat', featuresACI.get.v('dat')))
-      // console.log(featuresACI.get.v('dat'))
+          v: tempData
+        }
+        ace.get.dat(obj, function(dat){
+          console.log('Server => New Project ID: ',dat);		
+          //setTimeout(()=> { cfg.projectModuleSwapping(3, '', 'LIST') }, 1000)		
+        })
+        ace.ini.item(obj, function(dat){
+          console.log('Localstorage => New Project ID: ',dat);	
+          setTimeout(()=> { cfg.projectModuleSwapping(3, '', 'LIST') }, 2000)
+          //cfg.projectModuleSwapping(3, '', 'LIST')			
+        })
       }
 
       function loadDatModule(dat){

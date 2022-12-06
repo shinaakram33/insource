@@ -55,7 +55,7 @@ ACE.mod("viewTaskDetails", function (ace) {
           {
             cls: 'row g-3 mt-3',
             mod: 'viewFeatureDetails',
-            handleSubmit,
+            handleUpdate,
             goBack,
             handleDelete,
             ini: (m)=> (viewFeatureDetailsACI  = m)
@@ -77,6 +77,13 @@ ACE.mod("viewTaskDetails", function (ace) {
           v: itm
         }
 
+        // ace.set.item(obj, function(dat){
+        //   successTextACI.rem('cls','d-none')
+        //   let clss = successTextACI.get.v('ele')
+        //   clss.classList.add('d-block')
+        // })
+
+        //SERVER SIDE
         ace.get.dat(obj, function(dat){
           successTextACI.rem('cls','d-none')
           let clss = successTextACI.get.v('ele')
@@ -92,17 +99,23 @@ ACE.mod("viewTaskDetails", function (ace) {
           v: itm
         }
 
+        // ace.del.item(obj, function(dat){
+        //   cfg.taskModuleSwapping(6, '', 'LIST')
+        //   // successTextACI.rem('cls','d-block')
+        //   // deleteTextACI.rem('cls','d-none')
+        //   // let clss = deleteTextACI.get.v('ele')
+        //   // clss.classList.add('d-block')
+        // })
+
+        //SERVER SIDE
         ace.get.dat(obj, function(dat){
-          successTextACI.rem('cls','d-block')
-          deleteTextACI.rem('cls','d-none')
-          let clss = deleteTextACI.get.v('ele')
-          clss.classList.add('d-block')
+          cfg.taskModuleSwapping(6, '', 'LIST')
         })
       }
   
       function getDat() {}
 
-      function handleSubmit(){
+      function handleUpdate(){
         let itm = viewFeatureDetailsACI.get.v('dat');
         setTask(itm)
       }
@@ -113,6 +126,7 @@ ACE.mod("viewTaskDetails", function (ace) {
 
       function handleDelete(){
         let itmId = viewFeatureDetailsACI.get.v('itm');
+        console.log('itmId', itmId)
         remDat(itmId)
       }
   
