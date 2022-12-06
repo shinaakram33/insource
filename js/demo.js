@@ -13,6 +13,7 @@ ACE(function (ace) {
   ace.get('mod', 'mod/Feature/viewAllFeatures.js')
   ace.get('mod', 'mod/Feature/viewFeatureDetails.js')
   ace.get('mod', 'mod/Project/viewProjectDetails.js')
+  ace.get('mod', 'mod/User/createUser.js')
 
    window.aceDatSrc = 'https://5dc.us:3032'
   var swap,
@@ -132,12 +133,12 @@ ACE(function (ace) {
                                           typ: 'a',
                                           cls: 'navbar-brand navbar-link',
                                           dom: [
-                                              { typ: 'span', lbl: 'Contact Us' },
+                                              { typ: 'span', lbl: 'Users' },
                                               { typ: 'br' },
                                           ],
                                           on: {
                                               click: () => {
-                                                  alert('COMING SOON')
+                                                swap.set('loc', 8);
                                               },
                                           },
                                       },
@@ -154,7 +155,7 @@ ACE(function (ace) {
           ini: (m) => {
             swap = m;
           },
-          loc: 5,
+          loc: 8,
           items: [
             {
               mod: 'createFeature',
@@ -200,6 +201,11 @@ ACE(function (ace) {
               mod: "viewTaskDetails",
               taskModuleSwapping,
               swapItem,
+              loadModule,
+              ini: (m) => (taskDetailsACI = m),
+            },
+            {
+              mod: "createUser",
               loadModule,
               ini: (m) => (taskDetailsACI = m),
             },
