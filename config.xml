@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.OhioFairPlan.ofp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+
+    <name>OFP</name>
+    <description>Ohio Fair Plan</description>
+    <!-- <preference name="InAppBrowserStatusBarStyle" value="lightcontent" /> -->
+    <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
+        Apache Cordova Team
+    </author>
+    
+    <content src="index.html" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+        <string>need camera access to take pictures</string>
+    </edit-config>
+    <edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
+    <string>need photo library access to save pictures there</string>
+
+</edit-config>
+<preference name="AndroidInsecureFileModeEnabled" value="true" />
+<preference name="AndroidPersistentFileLocation" value="Internal" />
+
+</widget>

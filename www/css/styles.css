@@ -1,0 +1,97 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--lightgreen);
+
+}
+
+#main-div{
+    border: 10px solid black;
+    height: 100vh;
+
+}
+:root {
+    --yellow:  #faa850;
+    --green:  #858544;
+    --red: #802629;
+    --red25: #80262940;
+    --navbar-bg:rgba(31, 111, 239, 0.766);
+    --white:#ffffff;
+    --tan:#FEE1C3;
+    --lightgreen: #edfbee;
+
+}
+
+.icons-bar {
+    background-color: var(--yellow);
+    padding: 3px;
+}
+
+.search-icon {
+    background-color: var(--white);
+    opacity: .5;
+    border-radius: 4px;
+    height: 26px;
+    margin-left: 10px;
+}
+.icons-container {
+    display: flex;
+    align-items: center;
+}
+.navbar-brand {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 15px;
+    color: var(--white)
+}
+.navbar-brand.navbar-link {
+    text-align: center;
+    color: var(--green);
+}
+.navbar-brand.contest {
+    text-align: center;
+    color: var(--red);
+}
+.navbar-customize {
+    background-color: var(--navbar-bg);
+    width: 100%;
+    
+}
+.saperator-bar {
+    background-color: var(--red);
+    height: 20px;
+}
+
+.mainMenu{
+    margin-top: 60%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+a{
+    text-decoration: none;
+    color: black
+}
+
+.inputField{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: transparent;
+}
+
+.nextBtn {
+    border: none;
+    background-color: rgb(183, 178, 178);
+    color: black;
+}
+
+@media screen and (min-width: 500px) {
+    body{
+        background-color: white;
+    }
+    #main-div{
+        background-color: var(--lightgreen);
+        margin-left: 35%;
+        width: 25%;
+    }
+}
