@@ -191,7 +191,8 @@ ACE.mod('createClaim', function(ace){
                 typ: 'claim',
                 v: claimData
                 }, function(dat){
-                    console.log('Data saved successfullt with ID: ', dat);
+                    // console.log('Data saved successfullt with ID: ', dat);
+                    alert('claim submitted successfully');
                     setDat();
                 }) 
             }

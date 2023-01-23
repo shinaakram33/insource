@@ -7,8 +7,9 @@ body {
 #main-div{
     border: 10px solid black;
     height: 100vh;
-
+    border-radius: 10px;
 }
+
 :root {
     --yellow:  #faa850;
     --green:  #858544;

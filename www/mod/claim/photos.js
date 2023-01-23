@@ -3,7 +3,7 @@ ACE.mod('photos', function(ace){
     return photos;
 
     function photos(cfg){
-        let id = cfg.id || '',
+        let id = cfg.id || 'photos',
         photosACI, selectedPhotosACI, pictureSource, destinationType,
         aci = {
             set: {
@@ -63,10 +63,10 @@ ACE.mod('photos', function(ace){
                                     for(let element of e.target.files){
                                         selectedPhotosACI.add({
                                                     typ: 'img',
+                                                    css: {w: '25%', h: '30%'},
                                                     src: URL.createObjectURL(element),
                                                     alt:'img/website.png',
-                                                    cls: 'mx-1 float-start',
-                                                    css: {w: '25%', h: '30%'},
+                                                    cls: 'mx-1 my-1 float-start',
                                         })
                                     }
                                 }
@@ -88,6 +88,15 @@ ACE.mod('photos', function(ace){
 
         function setDat(){
             try{
+                const mutationObserver = new MutationObserver(entries => {
+                    setTimeout(()=> {
+                        let node = document.querySelector('.cordova-camera-capture');
+                        const parent = document.querySelector('#main-div')
+                        parent.appendChild(node);
+                    }, 1000);
+                })
+                const parent = document.querySelector('body')
+                mutationObserver.observe(parent, {childList: true});
                 pictureSource=navigator.camera.PictureSourceType;
                 destinationType=navigator.camera.DestinationType;
                 navigator.camera.getPicture(onSuccess, onFail,
@@ -95,14 +104,14 @@ ACE.mod('photos', function(ace){
                         destinationType: Camera.DestinationType.DATA_URL ,
                         sourceType: Camera.PictureSourceType.CAMERA,
                         mediaType: Camera.MediaType.PICTURE,
-                        encodingType: Camera.EncodingType.JPEG
+                        encodingType: Camera.EncodingType.JPEG,
                 });
                 function onSuccess(imageURI) {
                     selectedPhotosACI.add('dom',{
                         typ: 'img',
                         src: "data:image/jpeg;base64,"+imageURI,
                         alt:'img/website.png',
-                        cls: 'mx-1 float-start',
+                        cls: 'mx-1 my-1 float-start',
                         css: {w: '25%', h: '30%'},
                     });
                 }
