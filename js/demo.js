@@ -2,18 +2,19 @@ ACE(function (ace) {
   var DOM = ace.get.v("dom");
    ace.get('mod', 'mod/Dat.js')
    ace.get('mod', 'mod/Itm.js')
-  ace.get("mod", "mod/SwapContent.js");
-  ace.get("mod", "mod/Project/createProject.js");
-  ace.get("mod", "mod/Project/viewAllProjects.js");
-  ace.get("mod", "mod/Task/createTask.js");
-  ace.get("mod", "mod/Task/viewAllTasks.js");
-  ace.get("mod", "mod/Task/viewTaskDetails.js");
-  ace.get("mod", "mod/Project/ProjectDetailsSection.js");
-  ace.get('mod', 'mod/Feature/createFeature.js')
-  ace.get('mod', 'mod/Feature/viewAllFeatures.js')
-  ace.get('mod', 'mod/Feature/viewFeatureDetails.js')
-  ace.get('mod', 'mod/Project/viewProjectDetails.js')
-  ace.get('mod', 'mod/User/createUser.js')
+    ace.get("mod", "mod/SwapContent.js");
+    ace.get("mod", "mod/Project/createProject.js");
+    ace.get("mod", "mod/Project/viewAllProjects.js");
+    ace.get("mod", "mod/Task/createTask.js");
+    ace.get("mod", "mod/Task/viewAllTasks.js");
+    ace.get("mod", "mod/Task/viewTaskDetails.js");
+    ace.get("mod", "mod/Project/ProjectDetailsSection.js");
+    ace.get('mod', 'mod/Feature/createFeature.js')
+    ace.get('mod', 'mod/Feature/viewAllFeatures.js')
+    ace.get('mod', 'mod/Feature/viewFeatureDetails.js')
+    ace.get('mod', 'mod/Project/viewProjectDetails.js')
+    ace.get('mod', 'mod/User/createUser.js')
+    ace.get('mod', 'mod/User/loginUser.js')
 
    window.aceDatSrc = 'https://5dc.us:3032'
   var swap,
@@ -189,7 +190,6 @@ ACE(function (ace) {
               loadModule,
               ini: (m)=> {createTaskACI = m}
             },
-            
             {
               mod: "viewAllTasks",
               getProjects,
@@ -207,6 +207,13 @@ ACE(function (ace) {
             {
               mod: "createUser",
               loadModule,
+              swapItem,
+              ini: (m) => (taskDetailsACI = m),
+            },
+            {
+              mod: "loginUser",
+              loadModule,
+              swapItem,
               ini: (m) => (taskDetailsACI = m),
             },
           ],

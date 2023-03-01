@@ -136,7 +136,7 @@ ACE.mod("createUser", function (ace) {
                         typ: 'input',
                         type: 'text',
                         cls: 'form-control',
-                        ini: m=> (phoneACI = m)
+                        ini: m=> (phoneNoACI = m)
                       }
                     ]
                   }
@@ -151,7 +151,7 @@ ACE.mod("createUser", function (ace) {
                     lbl: 'Already have an Account? Login ',
                     on: {
                       click: ()=> {
-                        handleCancle()
+                        cfg.swapItem(9)
                       }
                     }
                   },
@@ -161,12 +161,12 @@ ACE.mod("createUser", function (ace) {
                     lbl: 'Sign Up',
                     on: {
                       click: ()=> {
-                        cfg.handleSubmit()
+                        handleSubmit()
                       }
                     }
                   }
                 ]
-              },    
+            },    
           ];
     
           return dom;
@@ -183,6 +183,18 @@ ACE.mod("createUser", function (ace) {
             password: passwordACI.get.v('val'),
             phone_no: phoneNoACI.get.v('val'),
           }
+        }
+
+        function handleSubmit(){
+            let obj = {
+                cmd: 'ini',
+                aspect: 'itm',
+                typ: 'user',
+                v: getDat()
+            }
+            ace.ini.item(obj, function(dat){
+                console.log('User created on localStorage ', dat)
+            })
         }
     
       }
