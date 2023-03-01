@@ -1,22 +1,25 @@
 ACE.mod('TaskList', function(ace){
     return TaskList
 
-    function TaskList(config){
+    function TaskList(cfg){
         ace.get('mod', 'mod/Task.js')
-        ace.get('mod', 'mod/SwapContent.js');
         let taskListACI,
-        swap = config.swap
+        swap = cfg.swap,
+        taskACI,
         ux = {
             typ: 'ul',
             cls: 'list-group justify-content-between',
             aci: {
                 add: {
                     task: addTask
+                },
+                get: {
+                    desc: getDesc
                 }
             },
             ini: (m) => { 
                 taskListACI = m;
-                config.ini(m);
+                cfg.ini(m);
             },
         }
 
@@ -28,9 +31,16 @@ ACE.mod('TaskList', function(ace){
                     typ: 'li',
                     mod: 'Task',
                     lbl: v,
-                    swap
+                    getDesc,
+                    ini: (m)=>{
+                        taskACI = m;
+                    },
                 })
             }
+        }
+
+        function getDesc(v){
+             cfg.getTaskDescription(v)
         }
     }
 })

@@ -4,21 +4,25 @@ ACE.mod('Task', function(ace){
        
     return Task
 
-    function Task(config){
-        //let data = JSON.parse(localStorage.getItem('tasks')),
-        ace.get('mod', 'mod/SwapContent.js');
-        let lbl = config.lbl,
-        id = config.id || 'task-' + now(),
+    function Task(cfg){
+        let lbl = cfg.lbl,
+        id = cfg.id || 'task-' + now(),
         cls = 'task',
-        Delete = config.onDelete,
-        swap = config.swap,
+        data=[],
+        aci = {
+            get: {
+                description: getDescription
+            }
+        },
         TaskACI;
         return {
             id,
             cls: cls + ' list-group-item border-top-0',
             dom: iniDom(),
+            aci,
             ini: (m)=> { 
                 TaskACI = m;
+                cfg.ini(m)
             }
         }
 
@@ -43,8 +47,9 @@ ACE.mod('Task', function(ace){
                                 lbl: lbl,
                                 on: {
                                     click: () => {
-                                        console.log(swap)
-                                        //swap.set('loc', 2);
+                                        data[0] = 2;
+                                        data[1] = lbl;
+                                        getDescription()
                                     },
                                 }
                             },
@@ -65,6 +70,10 @@ ACE.mod('Task', function(ace){
 
         function deleteTask(){
             TaskACI.del()
+        }
+
+        function getDescription(){
+            cfg.getDesc(data)
         }
     }
 })

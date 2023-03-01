@@ -2,9 +2,9 @@ ACE.mod('AddTask', function(ace){
     var now = ace.now
     return AddTask
 
-    function AddTask(Config){
+    function AddTask(cfg){
         let inputData,
-        id= Config.id || 'task-'+now,
+        id= cfg.id || 'task-'+now,
         cls = 'add-task',
         inputElement,
         addTaskACI,
@@ -49,7 +49,7 @@ ACE.mod('AddTask', function(ace){
             //localStorage.setItem('tasks', JSON.stringify(tasksObj))
             localStorage.setItem('tasks', inputElement.get.v('val'))
             inputElement.set('val', '')
-            Config.addtask(addTaskACI);
+            cfg.addtask(addTaskACI);
         }
 
         function getData(){

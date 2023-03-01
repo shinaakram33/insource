@@ -6,24 +6,28 @@ ACE.mod('TodoList', function(ace){
     function TodoList(cfg){
         ace.get('mod', 'mod/AddTask.js')
         ace.get('mod', 'mod/TaskList.js')
-        ace.get('mod', 'mod/SwapContent.js');
         let id = cfg.id || 'todo-list-' + now(),
             cls = 'todo-list',
             me,
-            swap = cfg.swap,
             tasksACI,
-            addTasksACI
+            addTasksACI,
+            aci = {
+                get: {
+                    taskDesc: getTaskDescription,
+                }
+            },
             ux = {
                 id,
                 dom: iniDom(),
                 ini,
+                aci
             };
 
         return ux;
 
         function ini(m) {
             me = m;
-            is.fnc(cfg.ini, m);
+            cfg.ini(m)
         }
 
         function iniDom() {
@@ -46,6 +50,7 @@ ACE.mod('TodoList', function(ace){
                                 {
                                     typ: 'ul',
                                     mod: 'TaskList',
+                                    getTaskDescription,
                                     ini: (m) => { 
                                         tasksACI = m;
                                     }
@@ -59,6 +64,10 @@ ACE.mod('TodoList', function(ace){
 
         function linkTask(addTaskACI){
             tasksACI.add('task',  addTaskACI.get.v('dat'))
+        }
+
+        function getTaskDescription(v){
+            cfg.getLocation(v)
         }
     }
 })

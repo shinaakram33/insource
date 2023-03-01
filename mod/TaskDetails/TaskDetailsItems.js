@@ -3,27 +3,34 @@ ACE.mod('TaskDetailsItems', function(ace){
     return TaskDetailsItems
 
     function TaskDetailsItems(cfg){
-        let taskText = cfg.lbl,
+        let taskText = cfg.taskText,
+        data=[],
+        taskTextACI,
         aci = {
-
+            set: {
+                dat: setDat
+            }
         },
         ux = {
-            id: '',
-            aci,
             dom: iniDom(),
+            aci,
             ini: (m)=>{
-
+                cfg.ini(m)
             }
         }
+        return ux;
 
         function iniDom(){
             let dom = [
                 {
                     typ: 'button',
-                    cls: '',
+                    cls: 'btn btn-secondary ms-2',
+                    lbl: 'Go back',
                     on: {
                         click: (e)=>{
-
+                            data[0] = 1
+                            data[1] = ''
+                            cfg.Location(data)
                         }
                     }
                 },
@@ -34,8 +41,11 @@ ACE.mod('TaskDetailsItems', function(ace){
                 {
                     dom: [
                         {
-                            typ: 'h5',
-                            lbl: taskText
+                            typ: 'p',
+                            lbl: taskText,
+                            ini: (m)=> {
+                                taskTextACI = m
+                            }
                         },
                         {
                             typ: 'p',
@@ -45,6 +55,10 @@ ACE.mod('TaskDetailsItems', function(ace){
                 }
             ]
             return dom;
+        }
+
+        function setDat(v){
+            taskTextACI.set('lbl', v)
         }
     }
 })

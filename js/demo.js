@@ -3,28 +3,10 @@ ACE(function (ace) {
     ace.get('mod', 'mod/TodoList.js')
     ace.get('mod', 'mod/SwapContent.js');
     ace.get('mod', 'mod/TaskDetails/TaskDetailsSection.js')
-    let swap;
+    var swap, taskText, taskDetailsACI, todoListACI;
     DOM({
         id: 'main-div',
         dom: [
-            {
-                lbl: 'Task List',
-                on: {
-                    click: ()=> {
-                        console.log('hello')
-                        swap.set('loc',2)
-                    }
-                }
-            },
-            {
-                lbl: 'Task Description',
-                on: {
-                    click: ()=>{
-                        console.log('hgsjagd')
-                        swap.set('loc',1)
-                    }
-                }
-            },
             {
                 mod: 'SwapContent',
                 ini: (m)=>{
@@ -34,12 +16,24 @@ ACE(function (ace) {
                 items: [
                     {
                         mod: 'TodoList',
+                        getLocation,
+                        ini: (m)=> todoListACI = m
                     },
                     {
                         mod: 'TaskDetailsSection',
-                    }
+                        Location: getLocation,
+                        taskText,
+                        ini: (m)=> taskDetailsACI = m
+                    }   
                 ]
             }
         ]
     })
+
+    function getLocation(v){
+        taskText = v[1];
+        swap.set('loc', v[0])  
+        taskDetailsACI.set('dat', taskText)  
+    }
+
 })
