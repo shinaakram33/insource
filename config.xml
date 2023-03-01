@@ -16,6 +16,7 @@
     </edit-config>
     <edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
     <string>need photo library access to save pictures there</string>
+    <!-- <uses-permission android:name="android.permission.RECORD_AUDIO"/> -->
 
 </edit-config>
 <preference name="AndroidInsecureFileModeEnabled" value="true" />
